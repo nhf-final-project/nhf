@@ -7,6 +7,7 @@ class SecondPage extends Component {
     this.indexWH = 0;
     this.bodyFat = 0;
     this.tmb = 0;
+    this.bodyMusscle = 0;
     this.service = new AuthService();
   }
 
@@ -67,6 +68,14 @@ class SecondPage extends Component {
     this.props.user.bodyFat = this.bodyFat
 
     // -------------------------------------------------------------
+    // ----- bodyMusscle 
+    // -------------------------------------------------------------
+    
+    this.bodyMusscle = parseFloat(this.props.user.weight - (this.props.user.weight * (this.bodyFat / 100))).toFixed(2)
+
+    this.props.user.bodyMusscle = this.bodyMusscle;
+
+    // -------------------------------------------------------------
     // ----- tmb 
     // -------------------------------------------------------------
 
@@ -96,7 +105,7 @@ class SecondPage extends Component {
         <h3>Create Account</h3>
         <div className="row">
           <div className="col-sm-12">
-            <form>
+            <form className="scroll">
               <div className="form-group col-12">
               <label>Gender</label>
                 <select type="text" name="gender" className="form-control" onChange={e => this.handleChange(e)} >
@@ -136,6 +145,10 @@ class SecondPage extends Component {
               <div className="form-group col-12">
                 <label>Body fat</label>
                 <input type="number" name="bodyFat" className="form-control" value={this.bodyFat} onChange={e => this.handleChange(e)} disabled="disabled" />
+              </div>
+              <div className="form-group col-12">
+                <label>Body musscle</label>
+                <input type="number" name="bodyMusscle" className="form-control" value={this.bodyMusscle} onChange={e => this.handleChange(e)} disabled="disabled" />
               </div>
               <div className="form-group col-12">
                 <label>TMB</label>

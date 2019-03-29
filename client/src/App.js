@@ -3,7 +3,7 @@ import './App.css';
 
 // Components
 import Signup from "./components/auth/Signup"
-//import Login from "./components/Login"
+import Login from "./components/auth/Login"
 //import Navbar from "./components/Navbar"
 
 
@@ -43,6 +43,7 @@ class App extends Component {
         <div>
 
             <Route exact path='/signup' render={() => <Signup setUser={this.setTheUser} />} />
+            <Route exact path='/login' render={() => <Login />} />
         </div>
       )
     }
