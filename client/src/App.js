@@ -3,9 +3,10 @@ import './App.css';
 
 // Components
 import Signup from "./components/auth/Signup"
+import Home from "./components/app/Home"
 import Login from "./components/auth/Login"
 import Profile from "./components/app/Profile"
-import Home from "./components/app/Home"
+import ProtectedRoutes from "./components/auth/ProtectedRoutes"
 
 //import Navbar from "./components/Navbar"
 
@@ -36,30 +37,66 @@ class App extends Component {
     this.setState({ loggedInUser: userObj })
   }
 
+  ceckLoggedin = () => {
+    this.service.loggedin()
+      .then(e=>{
+        console.log(e)
+        if(e) this.setState({ loggedInUser: true})
+      })
+
+  }
+
+  logoutUser = () => {
+    this.service.logout()
+        .then(() => {
+            this.setState({ loggedInUser: false });
+           
+        })
+}
+
 
   render() {
 
-    // this.fetchUser()
+    const { loggedInUser } = this.state
 
-    const {loggedInUser} = this.state
-
+    console.log(this.loggedInUser)
+    if (loggedInUser) {
+      console.log("logeado")
       return (
         <div>
-          <Route exact path='/signup' render={() => (
-            loggedInUser ? (
-              <Redirect to="/profile" />
-            ) : (
-                <Signup setUser={this.setTheUser} />
-              )
-          )} />
-          <Route exact path='/login' render={() => <Login />} />
-          <Route exact path='/profile' render={() => <Profile />} />
-          <Route exact path='/' render={() => <Home />} />
+          <Switch>
+            <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
+          </Switch>
+        </div>
+      )
+    }
+    else {
+      return (
+        <div>
+          <Switch>
+            <Route exact path='/signup' render={() => <Signup setUser={this.setTheUser} user={this.loggedInUser}/>} />
+            <Route exact path='/login' render={() => <Login setUser={this.setTheUser} user={this.loggedInUser} />} />
+            <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
+          </Switch>
+
+          {/* <Route exact path='/signup' render={() => (
+                    loggedInUser ? (
+                      <Redirect to="/login" />
+                    ) : (
+                        <Signup setUser={this.setTheUser} />
+                      )
+                  )} /> */}
+
+
         </div>
       )
     }
 
+
   }
+
+}
 
 
 export default App;
+

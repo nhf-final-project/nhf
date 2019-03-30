@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import AuthService from "../../service/auth-service";
 import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+
 
 class ThirdPage extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      
-    };
 
     this.service = new AuthService();
   }
@@ -19,6 +17,7 @@ class ThirdPage extends Component {
   };
 
   render() {
+
     return (
       
       <div className="container wrapper">
@@ -66,7 +65,7 @@ class ThirdPage extends Component {
                 <input type="text" name="weightGoal" className="form-control" onChange={e => this.handleChange(e)} />
               </div>
 
-              <input value="Continue" className="btn btn-outline-dark btn-account" onClick={this.props.handleFormSubmit}/>
+              <button className="btn btn-outline-dark btn-account" onClick={this.props.handleFormSubmit}>Continue</button>
             </form>
 
             
