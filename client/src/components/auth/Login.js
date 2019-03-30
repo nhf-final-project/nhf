@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 import AuthService from "../../service/auth-service";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = { email: '', password: '' };
+        this.state = { email: '', password: '', logged: false };
         this.service = new AuthService();
     }
 
     handleFormSubmit = (event) => {
         event.preventDefault();
-        const email = this.state.email;
+        const username = this.state.username;
         const password = this.state.password;
-        console.log("entro")
-        this.service.login(email, password)
+        this.service.login(username, password)
              .then(response => {
-                 this.setState({ email: "", password: "" });
-                 this.props.setUser(response)
-                //window.location.assign('/coasters')
+                console.log(response)
+                 this.setState({ email: "", password: "", logged: true }, ()=> this.props.setUser(response));
              })
              .catch(error => console.log(error))
     }
@@ -29,6 +27,9 @@ class Login extends Component {
     }
 
     render() {
+
+        if(this.state.logged) return <Redirect to={"/profile"}/>
+
         return (
             <div className="container create-account">
               <div className="container wrapper">
@@ -37,15 +38,15 @@ class Login extends Component {
                     <div className="col-sm-12">
                         <form onSubmit={this.handleFormSubmit}>
                             <div className="form-group col-12">
-                                <label>Email</label>
-                                <input type="text" name="email" className="form-control" value={this.state.email} onChange={e => this.handleChange(e)} />
+                                <label>Username</label>
+                                <input type="text" name="username" className="form-control" value={this.state.username} onChange={e => this.handleChange(e)} />
                             </div>
 
                             <div className="form-group col-12">
                                 <label>Password</label>
                                 <input type="password" name="password" className="form-control" value={this.state.password} onChange={e => this.handleChange(e)} />
                             </div>
-                            <input type="submit" value="Signup" className="btn btn-outline-dark" />
+                            <input type="submit" value="Login" className="btn btn-outline-dark" />
                         </form>
 
                         <small>¿No tienes una cuenta? <Link to={"/signup"}> Regístrate ahora</Link></small>

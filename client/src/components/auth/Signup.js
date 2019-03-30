@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
 import AuthService from "../../service/auth-service";
 import Carousel from "react-bootstrap/Carousel";
 import FirstPage from "./FirstPage";
@@ -36,7 +37,7 @@ class Signup extends Component {
         controls: false,
         interval: null,
         keyboard: true,
-      }
+      },
       
     };
 
@@ -46,7 +47,7 @@ class Signup extends Component {
   updateState = (name, value) => {
     console.log(name, value)
 
-    this.setState({ user:{ ...this.state.user, [name]: value } });
+    this.setState({ user:{ ...this.state.user, [name]: value,  } });
   }
 
   handleSelect = (selectedIndex, e) => {
@@ -57,7 +58,7 @@ class Signup extends Component {
     // event.preventDefault();
     const { username, email, password, gender, height, weight, age, waist, hip, neck,
             bodyFat, bodyMusscle, tmb, trainingDays, indexWH, activityLevel, goal, weightGoal } = this.state.user;
-
+   
     this.service
       .signup(  username, email, password, gender, height, weight, age, waist, hip, neck,
         bodyFat, bodyMusscle,tmb, trainingDays, indexWH, activityLevel, goal, weightGoal  )
@@ -82,9 +83,9 @@ class Signup extends Component {
                 activityLevel: "",
                 goal: "",
                 weightGoal: ""
-              }
-        });
-        this.props.setUser(response);
+              },
+           
+        }, () => this.props.setUser(response));
       })
       .catch(error => console.log(error));
   };
@@ -95,6 +96,7 @@ class Signup extends Component {
   };
 
   render() {
+
     return (
         <div className="container create-account">
             <Carousel
