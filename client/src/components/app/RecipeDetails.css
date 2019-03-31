@@ -1,0 +1,48 @@
+/* RECIPE-DETAIL */
+
+.single-recipe-card {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.single-recipe-top {
+  /* border-bottom: 1px solid rgba(0,0,0,0.2); */
+}
+
+.labels {
+  display: inline-block;
+  list-style-type: none;
+}
+
+.primary-nutrients {
+  list-style-type: none;
+}
+
+.primary-nutrients :last-child {
+  list-style-type: none;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.secondary-nutrients {
+  list-style-type: none;
+}
+
+.nutrients-modal {
+  list-style-type: none;
+}
+
+.nutrients-modal span {
+  font-weight: bolder;
+}
+
+.space-between {
+  height: 20px;
+}
+
+.space-between-primary {
+  
+}
+
+.calories span{
+  font-weight: bolder;
+}
