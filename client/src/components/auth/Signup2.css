@@ -1,0 +1,21 @@
+.signup {
+  min-height: 90vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.5);
+  background-image: "url(https://img.freepik.com/foto-gratis/fondo-alimentos-concepto-alimentos-varios-sabrosos-ingredientes-frescos-cocinar-ingredientes-italianos-comida-vista-arriba-espacio-copia_1220-1491.jpg?size=626&ext=jpg)";
+}
+
+.wrapper {
+  height: 80vh;
+  width: 80vw;
+}
+
+.wrapper-inside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 // Components
-import Signup from "./components/auth/Signup"
+import Signup2 from "./components/auth/Signup2"
 import Home from "./components/app/Home"
 import Login from "./components/auth/Login"
 import Profile from "./components/app/Profile"
@@ -65,6 +65,7 @@ class App extends Component {
       return (
         <div>
           <Switch>
+            
             <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
           </Switch>
         </div>
@@ -74,7 +75,8 @@ class App extends Component {
       return (
         <div>
           <Switch>
-            <Route exact path='/signup' render={() => <Signup setUser={this.setTheUser} user={this.loggedInUser}/>} />
+            <Route exact path="/" component={Home} />
+            <Route exact path='/signup' render={() => <Signup2 setUser={this.setTheUser} user={this.loggedInUser}/>} />
             <Route exact path='/login' render={() => <Login setUser={this.setTheUser} user={this.loggedInUser} />} />
             <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
           </Switch>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
 MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon, MDBFormInline } from "mdbreact";
+import './NavbarPage.css'
 
 class NavbarPage extends Component {
 state = {
@@ -14,7 +15,7 @@ toggleCollapse = collapseID => () =>
 
 render() {
   return (
-      <MDBNavbar color="unique-color-dark" dark expand="md">
+      <MDBNavbar color="unique-color-dark" dark expand="md" className="nav-height">
         <MDBNavbarBrand>
           <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" height="30" alt="" />
         </MDBNavbarBrand>
@@ -43,17 +44,6 @@ render() {
           </MDBNavbarNav>
           
           <MDBNavbarNav right>
-          <MDBNavItem>
-              <MDBFormInline waves>
-                <div className="md-form m-1">
-                  <input className="form-control" type="text" placeholder="Search" aria-label="Search" />
-                </div>
-              </MDBFormInline>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink className="waves-effect waves-light m-1" to="#!">
-                <MDBIcon icon="cog" className="mr-1" />Settings</MDBNavLink>
-            </MDBNavItem>
             <MDBNavItem>
               <MDBDropdown>
                 <MDBDropdownToggle className="dopdown-toggle" nav caret>
