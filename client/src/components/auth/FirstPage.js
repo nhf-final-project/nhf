@@ -46,7 +46,7 @@ class FirstPage extends Component {
             </form>
 
             <small>
-              Already have an account? <Link to={"/"}> Login </Link>
+              Already have an account? <Link to={"/login"}> Login </Link>
             </small>
           </div>
         </div>

@@ -271,7 +271,44 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-}       
+} 
+
+.one-recipe-card {
+  width: 300px;
+  margin: 10px auto;
+}
+
+/* PROFILE */
+
+.profile-header {
+  background-image: url('./images/profile-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 50vh;
+}
+
+.profile-image {
+  height: 200px;
+}
+
+.user-greeting {
+  color: rgb(250, 250, 250);
+  /* display: flex; */
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+
+}
+
+.user-greeting span {
+  font-size: 4rem;
+}
+
+.primary-nutrients-modal ul li:last-child {
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
 
 @keyframes App-logo-spin {
   from {

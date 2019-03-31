@@ -7,6 +7,9 @@ import Home from "./components/app/Home"
 import Login from "./components/auth/Login"
 import Profile from "./components/app/Profile"
 import ProtectedRoutes from "./components/auth/ProtectedRoutes"
+import AllRecipes from './components/app/AllRecipes';
+import RecipeDetails from './components/app/RecipeDetails';
+
 
 //import Navbar from "./components/Navbar"
 
@@ -59,7 +62,6 @@ class App extends Component {
 
     const { loggedInUser } = this.state
 
-    console.log(this.loggedInUser)
     if (loggedInUser) {
       console.log("logeado")
       return (
@@ -74,8 +76,11 @@ class App extends Component {
       return (
         <div>
           <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/recipes' component={AllRecipes} />
+            <Route exact path='/recipes/:id' component={RecipeDetails} />
             <Route exact path='/signup' render={() => <Signup setUser={this.setTheUser} user={this.loggedInUser}/>} />
-            <Route exact path='/login' render={() => <Login setUser={this.setTheUser} user={this.loggedInUser} />} />
+            <Route exact path='/login' render={() => <Login setUser={this.setTheUser} user={this.loggedInUser} />} />   
             <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
           </Switch>
 

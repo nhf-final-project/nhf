@@ -9,66 +9,38 @@ const userSchema = new Schema({
       type: String,
       enum: ['male', 'female'],
       default: 'male',
+      required: true
     },
-    height: {type: Number},
-    weight: {type: Number},
-    age: {type: Number},
-    waist: {type: Number},
-    hip: {type: Number},
-    neck: {type: Number},
-    bodyFat: {type: Number },
-    bodyMusscle: {type: Number },
-    tmb: {type: Number },
+    height: {type: Number, required: true},
+    weight: {type: Number, required: true},
+    age: {type: Number, required: true},
+    waist: {type: Number, required: true},
+    hip: {type: Number, required: true},
+    neck: {type: Number, required: true},
+    bodyFat: {type: Number, required: true },
+    bodyMusscle: {type: Number, required: true },
+    tmb: {type: Number, required: true },
     trainingDays: {
       type: String,
       enum: ['1', '2', '3', '4', '5', '6', '7'],
       default: '1',
+      required: true
     },
     indexWH: {type: Number },
     activityLevel: {
       type: String,
       enum: ['sedentary', 'moderate', 'active', 'very active'],
+      required: true
     },
     goal: {
       type: String,
       enum: ['lose weight', 'maintain', 'build muscle'],
       default: 'maintain',
+      required: true
     },
-    weightGoal: {type: Number}
-
-
-
-
-    // gender: {
-    //   type: String,
-    //   enum: ['male', 'female'],
-    //   required: true
-    // },
-    // height: {type: Number, required: true },
-    // weight: {type: Number, required: true },
-    // age: {type: Number, required: true },
-    // waist: {type: Number, required: true },
-    // neck: {type: Number, required: true },
-    // bodyFat: {type: Number },
-    // tmb: {type: Number },
-    // trainingDays: {
-    //   type: String,
-    //   enum: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-    //   required: true
-    // },
-    // indexWH: {type: Number },
-    // activityLevel: {
-    //   type: String,
-    //   enum: ['sedentary', 'moderate', 'active', 'very active'],
-    //   required: true
-    // },
-    // goal: {
-    //   type: String,
-    //   enum: ['lose weight', 'maintain', 'build muscle'],
-    //   default: 'maintain',
-    //   required: true
-    // },
-    // weightGoal: {type: Number, required: true }
+    weightGoal: {type: Number, required: true},
+    recipes: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
+    // foods: [{ type: Schema.Types.ObjectId, ref: 'Food' }]
 },
     {
         timestamps: true

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NavbarPage from "./NavbarPage"
+// import NavbarPage from "./NavbarPage"
 import Intro from "./Intro"
 
 
@@ -15,20 +15,20 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <NavbarPage />
+        {/* <NavbarPage /> */}
         
         <CardFood />
-        <CardExample />
+        {/* <CardExample />
 
         <Signup2 />
 
 
-        <ThumbnailsCarouselPage />
+        <ThumbnailsCarouselPage /> */}
 
-        <Form />
+        {/* <Form /> */}
 
 
-        <Intro />
+        {/* <Intro /> */}
 
       </div>
     )

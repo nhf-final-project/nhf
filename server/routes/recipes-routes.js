@@ -1,12 +1,28 @@
 const express = require('express');
 const recipesRoutes = express.Router();
+const axios = require('axios')
+const rp = require('request-promise')
 const Recipe = require('../models/Recipe');
+const User = require('../models/User');
+
+recipesRoutes.get('/recipes', (req, res, next) => {
+    Recipe.find()
+      .then(data => res.json(data))
+      .catch(err => console.log(err))
+})
+
+recipesRoutes.get("/recipes/:id", (req, res) => {
+    Recipe.findById(req.params.id)
+      .then(data => res.json(data))
+      .catch(err => console.log(err))
+  })
+
 
 recipesRoutes.post('/recipes', (req, res, next) => {
 
   console.log(req.body)
 
-  const{ uri, label, image, dietLabels, healthLabels, ingredientLines, calories, totalWeight, totalTime, totalNutrients, totalDaily, digest } = req.body
+//   const{ uri, label, image, dietLabels, healthLabels, ingredientLines, calories, totalWeight, totalTime, totalNutrients, totalDaily, digest } = req.body
    
     Recipe.findOne({uri}, (err, foundRecipe) => {
 
@@ -16,8 +32,8 @@ recipesRoutes.post('/recipes', (req, res, next) => {
         }
 
         if (foundRecipe) {
-            res.status(400).json({ message: 'recipe taken. Choose another one.' });
-            return;
+            console.log(foundRecipe)
+            res.status(200).json(foundRecipe);        
         }
 
         const aNewRecipe = new Recipe({ uri, label, image, dietLabels, healthLabels, ingredientLines, calories, totalWeight, totalTime, totalNutrients, totalDaily, digest});
