@@ -65,7 +65,7 @@ class App extends Component {
       return (
         <div>
           <Switch>
-            
+             <Route exact path='/recipes/:id' component={RecipeDetails} user={this.loggedInUser} />            
             <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
           </Switch>
         </div>
@@ -77,10 +77,11 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/recipes' component={AllRecipes} />
-            <Route exact path='/recipes/:id' component={RecipeDetails} />
+            <Route exact path='/recipes/:id' component={RecipeDetails} user={this.loggedInUser} />
             <Route exact path='/signup' render={() => <Signup2 setUser={this.setTheUser} user={this.loggedInUser}/>} />
             <Route exact path='/login' render={() => <Login setUser={this.setTheUser} user={this.loggedInUser} />} />   
             <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
+            <Route exact path='/search' component={AllRecipes} />
           </Switch>
 
           {/* <Route exact path='/signup' render={() => (

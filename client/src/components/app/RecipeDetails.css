@@ -1,27 +1,54 @@
 /* RECIPE-DETAIL */
 
-.single-recipe-card {
-  display: flex;
-  flex-flow: row nowrap;
-}
-.single-recipe-top {
+
+.single-recipe-labels {
   /* border-bottom: 1px solid rgba(0,0,0,0.2); */
 }
 
-.labels {
+.single-recipe-labels p {
   display: inline-block;
+  margin-left: 10px;
+}
+
+.labels {
+  /* display: inline-block; */
   list-style-type: none;
 }
+
+.recipe-image {
+  margin-bottom: 20px;
+}
+
+.save-to-btn {
+  margin-top: 20px;
+  width: 300px;
+}
+
+
+.modal-btn {
+  margin-top: 20px;
+  width: 300px;
+}
+
+
+
+
+.wrapper-content h2{
+  margin-bottom: 20px;
+}
+
+.single-recipe-ingredients {
+  margin-bottom: 20px;
+}
+
+
 
 .primary-nutrients {
   list-style-type: none;
 }
 
-.primary-nutrients :last-child {
-  list-style-type: none;
-  margin-bottom: 10px;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
-}
+
+
 
 .secondary-nutrients {
   list-style-type: none;
