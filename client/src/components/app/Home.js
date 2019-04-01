@@ -5,7 +5,7 @@ import Intro from "./Intro"
 
 
 import CardFood from "./CardFood"
-import CardExample from "./CardExample"
+import HomeSection from "./HomeSection"
 import Signup2 from "../auth/Signup2"
 import Form from "../auth/Form"
 import ThumbnailsCarouselPage from "../auth/ThumbnailsCarouselPage"
@@ -15,9 +15,11 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        {/* <NavbarPage /> */}
+        <NavbarPage />
         
-        <CardFood />
+        
+        <HomeSection />
+        <HomeSection />
         {/* <CardExample />
 
         <Signup2 />
@@ -27,7 +29,7 @@ export default class Home extends Component {
 
         {/* <Form /> */}
 
-        <Signup2 />
+        {/* <Signup2 /> */}
 
         {/* <Intro /> */}
 

@@ -127,7 +127,6 @@ class PageTwo extends Component {
               <MDBInput label="Body fat"            icon="walking"       group type="number" validate error="wrong" success="right" name="bodyFat"     value={this.bodyFat} onChange={e => this.handleChange(e)} disabled="disabled" />
               <MDBInput label="Body musscle"        icon="walking"       group type="number" validate error="wrong" success="right" name="bodyMusscle" value={this.bodyMusscle} onChange={e => this.handleChange(e)} disabled="disabled" />
               <MDBInput label="TMB"                 icon="fire-alt"       group type="number" validate error="wrong" success="right" name="tmb"         value={this.tmb} onChange={e => this.handleChange(e)} disabled="disabled" /> 
-              <MDBBtn className="btn-rounded float-right" color="dark">Next</MDBBtn>
             </form>
           </MDBCol>
           

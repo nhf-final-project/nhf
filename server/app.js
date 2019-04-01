@@ -15,12 +15,8 @@ require('./configs/passport');
 
 mongoose
   .connect(process.env.DB, {useNewUrlParser: true})
-  .then(x => {
-    console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
-  })
-  .catch(err => {
-    console.error('Error connecting to mongo', err)
-  });
+  .then(x => { console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`) })
+  .catch(err => { console.error('Error connecting to mongo', err) });
 
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
@@ -57,8 +53,6 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
-
-
 const index = require('./routes/index');
 app.use('/', index);
 
@@ -68,8 +62,6 @@ app.use('/api', authRoutes);
 const recipesRoutes = require('./routes/recipes-routes');
 app.use('/api', recipesRoutes);
 
-app.use((req, res) => {
-  res.sendFile(`${__dirname}/public/index.html`);
-})
+app.use((req, res) => { res.sendFile(`${__dirname}/public/index.html`); })
 
 module.exports = app;

@@ -13,7 +13,7 @@ export default class authService {
 
     signup = (username, email, password, gender, height, weight, age, waist, hip, neck,
         bodyFat, bodyMusscle, tmb, trainingDays, indexWH, activityLevel, goal, weightGoal) => {
-        return this.service.post('signup', { username, email, password, gender, height, weight, age, waist, hip, neck,
+        return this.service.post('/signup', { username, email, password, gender, height, weight, age, waist, hip, neck,
             bodyFat, bodyMusscle, tmb, trainingDays, indexWH, activityLevel, goal, weightGoal })
             .then(response => response.data)
     }

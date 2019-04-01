@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AuthService from "../../service/auth-service";
+import AuthService from "../../../service/auth-service";
 
 class SecondPage extends Component {
   constructor(props) {

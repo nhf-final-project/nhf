@@ -1,44 +1,31 @@
 import React, { Component } from "react";
 import AuthService from "../../service/auth-service";
-import FormBG from '../../images/form-bg.jpeg'
 import './Signup2.css'
+import { Link, Redirect } from 'react-router-dom';
 
 
-import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBCard, MDBCardImage } from 'mdbreact';
+import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask } from 'mdbreact';
+
+
 import PageOne from './PageOne';
 import PageTwo from './PageTwo';
 import PageThree from './PageThree';
-import Stepper from "./Stepper"
 
 
 class CarouselPage extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       user: {
-        username: "",
-        email: "",
-        password: "",
-        gender: "",
-        height: "",
-        weight: "",
-        age: "",
-        waist: "",
-        hip: "",
-        neck: "",
-        bodyFat: "",
-        bodyMusscle: "",
-        tmb: "",
-        trainingDays: "",
-        indexWH: "",
-        activityLevel: "",
-        goal: "",
-        weightGoal: ""
+        username: "",   email: "",        password: "", gender: "",         height: "",   weight: "",
+        age: "",        waist: "",        hip: "",      neck: "",           bodyFat: "",  bodyMusscle: "",
+        tmb: "",        trainingDays: "", indexWH: "",  activityLevel: "",  goal: "",     weightGoal: ""
       },
-      formBG: FormBG
+      logged: false,
+      error: '',
+      formActivePanel1: 1,
+      formActivePanel1Changed: false,
     };
-
     this.service = new AuthService();
   }
 
@@ -46,8 +33,8 @@ class CarouselPage extends Component {
 
   handleSelect = (selectedIndex, e) => this.setState({carousel: {...this.state.carousel, index: selectedIndex,direction: e.direction} })
 
-  handleFormSubmit = () => {
-    // event.preventDefault();
+  handleFormSubmit = (event) => {
+    event.preventDefault();
     const { username, email, password, gender, height, weight, age, waist, hip, neck,
             bodyFat, bodyMusscle, tmb, trainingDays, indexWH, activityLevel, goal, weightGoal } = this.state.user;
    
@@ -55,30 +42,19 @@ class CarouselPage extends Component {
       .signup(  username, email, password, gender, height, weight, age, waist, hip, neck,
         bodyFat, bodyMusscle,tmb, trainingDays, indexWH, activityLevel, goal, weightGoal  )
       .then(response => {
-        this.setState({
+        this.setState({ ...this.state, 
             user: {
-                username: "",
-                email: "",
-                password: "",
-                gender: "",
-                height: "",
-                weight: "",
-                age: "",
-                waist: "",
-                hip: "",
-                neck: "",
-                bodyFat: "",
-                bodyMusscle: "",
-                tmb: "",
-                trainingDays: "",
-                indexWH: "",
-                activityLevel: "",
-                goal: "",
-                weightGoal: ""
-              },
+              username: "",   email: "",        password: "", gender: "",         height: "",   weight: "",
+              age: "",        waist: "",        hip: "",      neck: "",           bodyFat: "",  bodyMusscle: "",
+              tmb: "",        trainingDays: "", indexWH: "",  activityLevel: "",  goal: "",     weightGoal: "",
+            },
+            logged: true
         }, () => this.props.setUser(response));
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.log(error)
+        console.log(error.response.data.message)
+      });
   };
 
   handleChange = event => {
@@ -86,27 +62,46 @@ class CarouselPage extends Component {
     this.setState({ user:{ ...this.state.user, [name]: value } });
   };
 
+  swapFormActive = (a) => (param) => (e) => {
+    this.setState({
+      ['formActivePanel' + a]: param,
+      ['formActivePanel' + a + 'Changed']: true
+    });
+  }
+
   render() {
-  return (
-      <MDBCarousel interval={false} multiItem={false} activeItem={1} length={4} showControls={false} showIndicators={true} className="z-depth-1 signup">
+    console.log(this.state.logged)
+    if(this.state.logged) return <Redirect to={"/profile"}/>
+    return (
+      
+      <MDBCarousel interval={false} multiItem={false} activeItem={1} length={3} showControls={false} showIndicators={true} className="z-depth-1 signup">
         <MDBCarouselInner>
+        {this.state.formActivePanel1 === 1 &&
+          (
           <MDBCarouselItem itemId="1" id="step-1">
-            <MDBView>
-              <PageOne updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} />
-              {/* <img className="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide" /> */}
+            <MDBView src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
+              <MDBMask overlay="black-light" className="flex-center flex-column text-white">
+                <PageOne updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} error={this.state.error} />
+                {/* <img className="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide" /> */}
+              </MDBMask>
             </MDBView>
             
           </MDBCarouselItem>
+          )}
           <MDBCarouselItem itemId="2" id="step-2">
-            <MDBView>
-              <PageTwo updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} />
-              {/* <img className="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(99).jpg" alt="Second slide" /> */}
+            <MDBView src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
+              <MDBMask overlay="black-light" className="flex-center flex-column text-white">
+                <PageTwo updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} />
+                {/* <img className="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(99).jpg" alt="Second slide" /> */}
+              </MDBMask>            
             </MDBView>
           </MDBCarouselItem>
           <MDBCarouselItem itemId="3" id="step-3">
-            <MDBView>
-              <PageThree updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} />
-              {/* <img className="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(17).jpg" alt="Third slide" /> */}
+            <MDBView  src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
+              <MDBMask overlay="black-light" className="flex-center flex-column text-white">
+                <PageThree updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} />
+                {/* <img className="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(17).jpg" alt="Third slide" /> */}
+              </MDBMask>            
             </MDBView>
           </MDBCarouselItem>
         </MDBCarouselInner>

@@ -1,10 +1,10 @@
 .signup {
   min-height: 90vh;
-  min-width: 100vw;
+  min-width: 90vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.7);
   background-image: "url(https://img.freepik.com/foto-gratis/fondo-alimentos-concepto-alimentos-varios-sabrosos-ingredientes-frescos-cocinar-ingredientes-italianos-comida-vista-arriba-espacio-copia_1220-1491.jpg?size=626&ext=jpg)";
 }
 
@@ -18,4 +18,18 @@
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+}
+
+.btn-account {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.links {
+  color: white;
+}
+
+.links:hover {
+  color: lightgray;
 }

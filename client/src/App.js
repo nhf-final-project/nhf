@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 
 // Components
-import Signup from "./components/auth/Signup"
+
+import NavbarPage from "./components/app/NavbarPage"
 import Signup2 from "./components/auth/Signup2"
 import Home from "./components/app/Home"
 import Login from "./components/auth/Login"
@@ -10,10 +11,6 @@ import Profile from "./components/app/Profile"
 import ProtectedRoutes from "./components/auth/ProtectedRoutes"
 import AllRecipes from './components/app/AllRecipes';
 import RecipeDetails from './components/app/RecipeDetails';
-
-
-//import Navbar from "./components/Navbar"
-
 
 // Routing & DOM
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -41,7 +38,7 @@ class App extends Component {
     this.setState({ loggedInUser: userObj })
   }
 
-  ceckLoggedin = () => {
+  checkLoggedin = () => {
     this.service.loggedin()
       .then(e=>{
         console.log(e)
@@ -81,7 +78,7 @@ class App extends Component {
             <Route exact path='/' component={Home} />
             <Route exact path='/recipes' component={AllRecipes} />
             <Route exact path='/recipes/:id' component={RecipeDetails} />
-            <Route exact path='/signup' render={() => <Signup setUser={this.setTheUser} user={this.loggedInUser}/>} />
+            <Route exact path='/signup' render={() => <Signup2 setUser={this.setTheUser} user={this.loggedInUser}/>} />
             <Route exact path='/login' render={() => <Login setUser={this.setTheUser} user={this.loggedInUser} />} />   
             <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
           </Switch>

@@ -23,7 +23,7 @@ class PageThree extends Component {
     return (
         <MDBContainer className="wrapper p-2">
             <h2 className="text-center">Create Account</h2>
-            <h3 class="font-weight-bold pl-0 my-4 text-center"><strong>Personal Data</strong></h3>
+            <h3 class="font-weight-bold pl-0 my-4 text-center"><strong>Personal Goals</strong></h3>
             <MDBRow className="wrapper-inside">
                 <MDBCol md="8">   
                     <Stepper />  
@@ -67,7 +67,7 @@ class PageThree extends Component {
                         <label>Weight goal</label>
                         <input type="text" name="weightGoal" className="form-control" onChange={e => this.handleChange(e)} />
                     </div>
-                    <button className="btn btn-outline-dark btn-account" onClick={this.props.handleFormSubmit}>Continue</button>
+                    <button className="btn btn-outline-light btn-account btn-rounded" onClick={this.props.handleFormSubmit}>Continue</button>
                     </form>
                 </MDBCol>
             </MDBRow>

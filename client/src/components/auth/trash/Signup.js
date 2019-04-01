@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-import AuthService from "../../service/auth-service";
+import AuthService from "../../../service/auth-service";
 import Carousel from "react-bootstrap/Carousel";
 import FirstPage from "./FirstPage";
 import SecondPage from "./SecondPage";
