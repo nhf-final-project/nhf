@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import ProfileImage from '../../images/avatar.png'
+import { Link } from 'react-router-dom'
+
 // import backgroundImage from '../../images/profile-background.jpg'
 
 
@@ -25,6 +27,8 @@ export default class Profile extends Component {
           <div>
              <img src="/open-iconic/svg/menu.svg"/>
              <a id="profile-menu">Menu</a>
+             <Link to={"/recipes"}> Go to recipes</Link>
+             {/* <Link to="/profile">Go to profile</Link> */}
           </div>
           <div className="user-greeting">
               <h1><span>Hello</span>, {loggedInUser.username}!</h1>

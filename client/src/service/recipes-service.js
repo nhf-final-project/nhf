@@ -29,6 +29,25 @@ export default class RecipeService {
 
     }
 
+    saveRecipe = id => {
+        return this.service.post(`recipes/${id}`)
+            .then(res => {
+                console.log(res);
+                return res.data;
+            })
+
+    }
+
+    searchRecipe = (query) => {
+        return this.service.get(`/search?q=${query}`)
+        .then(res => {
+            return res.data
+        })
+        .catch( err => {
+            console.log(err)
+        })
+    }
+
  
 }
 
