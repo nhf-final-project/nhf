@@ -14,5 +14,18 @@ profileRoutes.post('/profile', (req, res, next) => {
     })
 })
 
+profileRoutes.post('/profile/edit', (req, res, next) => {
+
+    console.log(req)
+
+    User.findByIdAndUpdate(req.user._id)
+    .populate("recipes")
+    .then(user => res.json({user}))
+    .catch(err => {
+        console.log('Error while finding one markerCoins', err)
+        next()
+    })
+})
+
 
 module.exports = profileRoutes;

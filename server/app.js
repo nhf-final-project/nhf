@@ -9,6 +9,7 @@ const path = require('path');
 const cors = require("cors");
 
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 require('./configs/passport');    
 
@@ -23,24 +24,6 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express();
 
-// Middleware Setup
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-// configuración sesión
-app.use(session({
-  secret: process.env.SECRET,
-  resave: true,
-  saveUninitialized: true
-}));
-
-// middlewares sesión
-app.use(passport.initialize());
-app.use(passport.session());
-      
-app.use(express.static(path.join(__dirname, "public")));
 
 // configuración CORS
 const whiteList = ["http://localhost:3000"]
@@ -52,6 +35,28 @@ const corsOptions = {
   credentials: true
 }
 app.use(cors(corsOptions));
+
+// Middleware Setup
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+
+// configuración sesión
+app.use(session({
+  secret: process.env.SECRET,
+  resave: true,
+  saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+
+// middlewares sesión
+app.use(passport.initialize());
+app.use(passport.session());
+      
+app.use(express.static(path.join(__dirname, "public")));
+
 
 const index = require('./routes/index');
 app.use('/', index);

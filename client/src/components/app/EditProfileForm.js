@@ -9,15 +9,49 @@ export default class EditProfileForm extends Component {
 
     this.state = {
       edit: {
-        username: "",   email: "",        password: "", gender: "",         height: "",   weight: "",
-        age: "",        waist: "",        hip: "",      neck: "",           bodyFat: "",  bodyMusscle: "",
-        tmb: "",        trainingDays: "", indexWH: "",  activityLevel: "",  goal: "",     weightGoal: ""
+        username: props.user.username,   height: props.user.height,       weight: props.user.weight,
+        age: props.user.age,        waist: props.user.waist,        hip: props.user.hip,      neck: props.user.neck,           bodyFat: props.user.bodyFat,  bodyMusscle: props.user.bodyMusscle,
+        tmb: props.user.tmb,        trainingDays: props.user.trainingDays, indexWH: props.user.indexWH,  activityLevel: props.user.activityLevel,  goal: props.user.goal,     weightGoal: props.user.weightGoal
       }
     }
 
     this.services = new ProfileService()
    
 }
+
+
+  handleChange = e => {
+    const { name, value } = e.target;
+    console.log(name, value)
+    this.setState({
+        edit: {
+            ...this.state.edit, 
+            [name]: value
+        }
+    })
+  }
+
+
+
+  handleSubmit = e => {
+
+    e.preventDefault()
+
+    this.services.updateProfile(this.props.user._id, this.state.edit)
+    //     .then(x => this.props.refreshCoasters())
+
+    // this.setState({
+    //   edit: {
+    //     username: "",   height: "",       weight: "",
+    //     age: "",        waist: "",        hip: "",      neck: "",           bodyFat: "",  bodyMusscle: "",
+    //     tmb: "",        trainingDays: "", indexWH: "",  activityLevel: "",  goal: "",     weightGoal: ""
+    //   }
+    // })
+ 
+}
+
+
+
 
   render() {
     const {user} = this.props
@@ -26,7 +60,8 @@ export default class EditProfileForm extends Component {
     return (
       <div>
         <h2>Edit profile</h2>
-          <div>
+         
+            <form onSubmit={this.handleSubmit}>
             <div className="form-group col-12">
                 <label>Username</label>
                 <input type="text" name="username" placeholder={user.username} className="form-control" value={edit.username} onChange={e => this.handleChange(e)} />
@@ -110,13 +145,10 @@ export default class EditProfileForm extends Component {
                 </select>
               </div>
             
-            <input type="text" name="weightGoal" value={user.weightGoal} className="form-control" />
+            <input type="text" name="weightGoal" value={user.weightGoal} className="form-control" onChange={e => this.handleChange(e)}  />
 
-            <button>Edit</button>
-          </div> 
-
-         
-        
+            <button type="submit" >Edit</button>
+            </form>  
       </div>
     )
   }

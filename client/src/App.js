@@ -24,6 +24,7 @@ class App extends Component {
     super(props)
     this.state = { loggedInUser: null }
     this.service = new authService()
+    // this.checkLoggedin()
   }
 
   fetchUser() {
@@ -42,7 +43,7 @@ class App extends Component {
     this.service.loggedin()
       .then(e=>{
         console.log(e)
-        if(e) this.setState({ loggedInUser: true})
+        if(e) this.setState({ loggedInUser: e})
       })
 
   }
