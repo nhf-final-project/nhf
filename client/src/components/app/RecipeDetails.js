@@ -1,31 +1,10 @@
 import React, { Component } from 'react';
 import RecipesService from "../../service/recipes-service";
-import { MDBRow, MDBCol, MDBView, MDBMask } from 'mdbreact';
-import Modal from 'react-modal'
+import { MDBRow, MDBCol, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBContainer } from 'mdbreact';
 import "./RecipeDetails.css"
 import NavbarPage from "./NavbarPage"
-import backgroundImage from '../../images/background-recipe-01-edit.jpg'
-import modalImg from '../../images/modal-image-01-edit.jpg'
 import { Link } from 'react-router-dom'
-
-
-
-const customStyles = {
-  content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      width: '40%',
-      background: `url(${modalImg})`
-
-  }
- 
-}
-
-Modal.setAppElement('#root')
+import {  MDBIcon } from 'mdbreact';
 
 class RecipeDetails extends Component {
 
@@ -36,166 +15,129 @@ class RecipeDetails extends Component {
         recipe: {},
         loggedInUser: null,
         addToMessage: "",
-        backgroundImage: backgroundImage
+        modal14: false
     }
-
     this.service = new RecipesService();
-    this.openModal = this.openModal.bind(this)
-    this.closeModal = this.closeModal.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ ...this.state, loggedInUser: nextProps["userInSession"] })
+  toggle = nr => () => {
+    let modalNumber = 'modal' + nr
+    this.setState({
+      [modalNumber]: !this.state[modalNumber]
+    });
   }
 
-  openModal = () => {
-    this.setState({ modalIsOpen: true });
-  }
-
-  closeModal = () => {
-    this.setState({ modalIsOpen: false });
-  }
-
-  componentDidMount() {
-    this.getRecipe()
-
-  }
+  componentDidMount() { this.getRecipe() }
+  componentWillReceiveProps(nextProps) { this.setState({ ...this.state, loggedInUser: nextProps["userInSession"] })}
 
   getRecipe = () => {
     this.service.getOneRecipe(this.props.match.params.id)
-    .then(response=>  {
-      this.setState({recipe: response})        
+      .then(response=>  {
+        this.setState({recipe: response})        
       });
-
   }
 
   saveTheRecipe = () => {
-    
     this.service.saveRecipe(this.props.match.params.id)
-    .then(response  =>  {
-      this.state.addToMessage = "Succesfully added!"
-      return response});
-    
+      .then(response  =>  {
+        console.log('entro')
+        this.setState({addToMessage: "Succesfully added!"})
+        return response});
   }
 
- 
   render () {
-    console.log(this.state.userInSession)
     const {recipe} = this.state
     let calories =  parseFloat(recipe.calories).toFixed(2)
 
     let copyTotalNutrients = {...recipe.totalNutrients}
-    console.log(copyTotalNutrients)
     let nutrients = []
-    let objectCopy = Object.values(copyTotalNutrients).map((value) => {
+    Object.values(copyTotalNutrients).map((value) => {
       let nutrientCopy = {...value}
       nutrientCopy.quantity = parseFloat(nutrientCopy.quantity).toFixed(2)
       nutrients.push(nutrientCopy)  
     })
-
-
-    let otherNutrients = []
-    let primaryNutrients = []
-    let secondaryNutrients = [] 
+    let otherNutrients = [], primaryNutrients = [], secondaryNutrients = [] 
    
-    let copyNutrients = nutrients.map((nutrient) => {
-
-
+    nutrients.map((nutrient) => {
       if(nutrient.label === "Carbs" || nutrient.label === "Fat" || nutrient.label === "Protein") primaryNutrients.push(nutrient)
       if(nutrient.label === "Fiber" || nutrient.label === "Sodium" || nutrient.label === "Cholesterol") secondaryNutrients.push(nutrient)
       else otherNutrients.push(nutrient)
     })
 
     return (
-
-          <MDBView src={this.state.backgroundImage}>
-          <MDBMask overlay="black-light" className="recipe-details-main">
-          <NavbarPage />
-            
-            <MDBRow className="m-2 p-2">
-
-              <MDBCol ml="4" className="title-image">             
-                  <img className="recipe-image" src={`${recipe.image}`} alt={`${recipe.label}`}/>
-                  <h2>{recipe.label}</h2> 
-              </MDBCol>
+      <div >
+        <NavbarPage />
+        <div className="recipe-details-main">
+          <MDBRow className="px-3">
+            <MDBCol md="3" className="pt-4">             
+              <img className="recipe-image" src={`${recipe.image}`} alt={`${recipe.label}`}/>
+              <h2>{recipe.label}</h2>
+              <h4><i className="fas fa-utensils"></i> {recipe.totalTime} mins to cook</h4>
+              {recipe.healthLabels && recipe.healthLabels.map((label, idx) => {
+                return <span className="labels" key={idx}>| {label} |</span>
+              })}
+              <br/>
+              <button onClick={this.saveTheRecipe} className="save-to-btn my-2 mx-0"><i className="fas fa-heart"></i> Save to collection</button>
+              <p className="text-center mt-2 add-to-message">{this.state.addToMessage}</p>
+            </MDBCol>
              
-              <MDBCol md="4 ingredients-container"> 
-                <div className="single-recipe-ingredients">
-                    <h4>Ingredients:</h4>
-                    {recipe.ingredientLines &&
-                    recipe.ingredientLines.map((ingredient, idx) => {
-                      return <article className="ingredients" key={idx}><li>{ingredient}</li></article>
-                    })}                     
-                </div>
-              </MDBCol> 
+            <MDBCol md="6" className="pt-4">
+                <h4 className="mb-2"><MDBIcon icon="clipboard-list"/> Ingredients:</h4>
+                {recipe.ingredientLines && recipe.ingredientLines.map((ingredient, idx) => {
+                  return <article className="ingredients" key={idx}><li>{ingredient}</li></article>
+                })}                     
+            </MDBCol> 
 
-              
-              <MDBCol md="4 nutrients-container">  
-                <div className="single-recipe-labels">                    
-                    <i className="fas fa-utensils"></i><p>{recipe.totalTime} mins to cook</p>
-                    {recipe.healthLabels &&
-                    recipe.healthLabels.map((label, idx) => {
-                      return <article className="labels" key={idx}><li>{label}</li></article>
-                    })}
-                </div>
+            <MDBCol md="3"  className="pt-4">                      
+              <div className="single-recipe-totals">
+                <h4><MDBIcon icon="balance-scale"/> Recipe Totals</h4>
+                <p className="calories"><span>Calories:  {calories}</span></p>
 
-                <i className="fas fa-heart"></i><button onClick={this.saveTheRecipe} className="save-to-btn">Save to collection</button>
+                {primaryNutrients && primaryNutrients.map((nutrient, idx) => {
+                    return <li key={idx} className="primary-nutrients">{nutrient.label}: {nutrient.quantity} {nutrient.unit}</li>
+                })}
 
-                <p className="add-to-message">{this.state.addToMessage}</p>
+                <hr className="space-between"/>
 
-                <div className="single-recipe-totals">
-                    <h4>Recipe Totals</h4>
-                    <p className="calories"><span>Calories:  {calories}</span></p>
+                {secondaryNutrients && secondaryNutrients.map((nutrient, idx) => {
+                    return <li key={idx} className="secondary-nutrients" >{nutrient.label}: {nutrient.quantity} {nutrient.unit}</li>
+                })}
 
-                    {primaryNutrients &&
-                    primaryNutrients.map((nutrient, idx) => {
-                        return <li key={idx} className="primary-nutrients">{nutrient.label}: {nutrient.quantity} {nutrient.unit}</li>
-                    })}
+                <button onClick={this.toggle(14)} className="modal-btn my-2 mx-0"><i class="fas fa-list"></i> See detailed nutrition</button>
+                <br/>
+                <br/>
+                <Link to={"/recipes"} className="home-btn mt-5 mb-2 mx-0 btn-block text-center"><i className="fas fa-home"></i> Back</Link>
 
-                    <hr className="space-between"/>
+                <MDBModal isOpen={this.state.modal14} toggle={this.toggle(14)} centered size="lg" className="my-modal">
+                  <MDBModalHeader toggle={this.toggle(14)} className="my-modal">Total calories: <span>{calories}</span></MDBModalHeader>
+                  <MDBModalBody className="my-modal">
+                    <MDBContainer fluid className="text-white">
+                      <MDBRow>
+                        <MDBCol md="6">
+                          {primaryNutrients && primaryNutrients.map((nutrient, idx) => {
+                            return <li key={idx} className="nutrients-modal">{nutrient.label}:<span>{nutrient.quantity} {nutrient.unit}</span></li>
+                          })}
+                        </MDBCol>
 
-                    {secondaryNutrients &&
-                    secondaryNutrients.map((nutrient, idx) => {
-                        return <li key={idx} className="secondary-nutrients" >{nutrient.label}: {nutrient.quantity} {nutrient.unit}</li>
-                    })}
-
-                    <i class="fas fa-list"></i><button onClick={this.openModal} className="modal-btn">See detailed nutrition</button>
-                      <br/>
-                      <i className="fas fa-home"></i><Link to={"/"} className="home-btn">Home Page</Link>
-
-                    <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={customStyles}>
-                        <h5>Total calories: <span>{calories}</span></h5>
-
-                        <hr className="space-between" />
-
-                        {primaryNutrients &&
-                        primaryNutrients.map((nutrient, idx) => {
-                          return <li key={idx} className="nutrients-modal">{nutrient.label}:<span>{nutrient.quantity} {nutrient.unit}</span></li>
-                        })}
-
-                        <hr className="space-between" />
-
-                        {otherNutrients &&
-                        otherNutrients.map((nutrient, idx) => {
-                          return <li key={idx} className="nutrients-modal" >{nutrient.label}: <span>{nutrient.quantity} {nutrient.unit}</span></li>
-                        })}
-                    </Modal>
-                </div>
-              </MDBCol>  
-                       
-            </MDBRow>
-            
-            </MDBMask>
-            </MDBView>
-     
-
- 
-      
+                        <MDBCol md="6">
+                          {otherNutrients && otherNutrients.map((nutrient, idx) => {
+                            return <li key={idx} className="nutrients-modal" >{nutrient.label}: <span>{nutrient.quantity} {nutrient.unit}</span></li>
+                          })}
+                        </MDBCol>
+                      </MDBRow>
+                    </MDBContainer>
+                  </MDBModalBody>
+                  <MDBModalFooter className="my-modal">
+                    <button onClick={this.toggle(14)} className="modal-btn my-2 mx-0">Close</button>
+                  </MDBModalFooter>
+                </MDBModal>
+              </div>
+            </MDBCol>            
+          </MDBRow>
+        </div>
+      </div>
     )
+  }
 }
-}
-
-
 
 export default RecipeDetails
-

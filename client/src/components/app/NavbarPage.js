@@ -27,10 +27,10 @@ class NavbarPage extends React.Component {
                 <img src="https:mdbootstrap.com/img/logo/mdb-transparent.png" height="30" alt="" />
               </MDBNavbarBrand>
               {!this.state.isWideEnough && <MDBNavbarToggler onClick={this.onClick} />}
-              <MDBCollapse isOpen={this.state.collapse} navbar className="">
+              <MDBCollapse isOpen={this.state.collapse} navbar className="prueba">
                 <MDBNavbarNav left>
                   <MDBNavItem><MDBNavLink to="#!">Food</MDBNavLink></MDBNavItem>
-                  <MDBNavItem><MDBNavLink to="#!">Recipes</MDBNavLink></MDBNavItem>
+                  <MDBNavItem><MDBNavLink to="/recipes">Recipes</MDBNavLink></MDBNavItem>
                   <MDBNavItem>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret><div className="d-none d-md-inline">MDBDropdown</div></MDBDropdownToggle>

@@ -1,11 +1,8 @@
 import React from 'react'
 
-
 const SearchByHealthLabel = (props) => {
-  // console.log(props.copia)
-
     return (      
-      <div>
+      <div className="mt-5 pt-5 px-3">
         {/* <form> 
             <h3>Calories:</h3>             
             <label><input type="checkbox" name="filtered" id="500" value={props.searchValue} onChange={(e) => {props.filterRecipe(e)}}/>0-500</label>  

@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import RecipesService from "../../service/recipes-service";
 import NavbarPage from "./NavbarPage"
 import RecipeCard from "./RecipeCard"
+import Footer from "./Footer"
 import SearchByHealthLabel from "./SearchByHealthLabel"
-import { MDBRow, MDBCol, MDBView, MDBMask } from 'mdbreact';
-import { array } from 'prop-types';
 import "./RecipeCard.css"
 
 // import backgroundImage from '../../images/background-recipe-01-edit.jpg'
@@ -100,45 +99,28 @@ export default class AllRecipes extends Component {
 
   lookForRecipe = () => {
     let copyCheckboxes = {...this.state.checkBoxes}
-    console.log(copyCheckboxes)
-
     let keys = Object.keys(copyCheckboxes)
-    console.log(keys)
 
-    keys = keys.filter(key => {
-      console.log(copyCheckboxes[key])
-      return copyCheckboxes[key] === true
-    })
-    const filter = keys.reduce((acc, key) => {
+    keys = keys.filter(key => { return copyCheckboxes[key] === true })
+    keys.reduce((acc, key) => {
       return acc.filter(recipe => recipe.healthLabels.includes(key))
     },this.state.recipes)
-    console.log(filter)
-
   }
 
-  componentDidMount() {
-    this.getAllRecipes()
-  }
+  componentDidMount() { this.getAllRecipes() }
 
   render() {
-
     return (
-
-      // <MDBView>
-      //  <MDBMask overlay="black-light" className="recipe-details-main">
-      <div>
-     
+      <div className="recipe-details-main">
           <NavbarPage />
-
           <SearchByHealthLabel recipes={this.state.recipes} copia={this.state.copia} searchValue={this.state.searchValue} searchRecipe={this.searchRecipe} filterRecipe={this.filterRecipe} />
-          
-          {this.state.recipes.map((oneRecipe, index) => <RecipeCard key={index} {...oneRecipe} />)}
- 
+          <div className="m-5">
+            <div className="row">
+            {this.state.recipes.map((oneRecipe, index) => <RecipeCard key={index} {...oneRecipe} />)}
+            </div>
+          </div>
+          <Footer />
       </div>
-      //   </MDBMask>
-      // </MDBView>
-     
-
     )
   }
 }
