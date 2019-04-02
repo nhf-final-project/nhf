@@ -120,7 +120,7 @@ export default class AllRecipes extends Component {
 
     console.log(filter)
     this.setState({
-      copia:filter,
+      copia:filter
       
     })
 

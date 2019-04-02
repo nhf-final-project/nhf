@@ -18,5 +18,14 @@ export default class ProfileService {
             })
 
     }
+
+    updateProfile = (id, edit) => {
+        return this.service.post(`profile/edit`, {edit, id})
+            .then(res => {
+                console.log(res);
+                return res.data;
+            })
+
+    }
  
 }
