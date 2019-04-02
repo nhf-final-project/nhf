@@ -1,7 +1,7 @@
 import React from 'react';
 import {  MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse, MDBNavItem, MDBNavLink, 
           MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdbreact';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Link, BrowserRouter as Router } from 'react-router-dom';
 import './NavbarPage.css'
 
 class NavbarPage extends React.Component {
@@ -23,8 +23,8 @@ class NavbarPage extends React.Component {
           <Router>
           {/* className="nav-height" */}
             <MDBNavbar color="elegant-color" fixed="top" dark expand="md" scrolling transparent scrollingNavbarOffset={200}>
-              <MDBNavbarBrand  href="/">
-                <img src="https:mdbootstrap.com/img/logo/mdb-transparent.png" height="30" alt="" />
+              <MDBNavbarBrand>
+                <Link to={"/"}><img src="https:mdbootstrap.com/img/logo/mdb-transparent.png" height="30" alt="" /></Link>
               </MDBNavbarBrand>
               {!this.state.isWideEnough && <MDBNavbarToggler onClick={this.onClick} />}
               <MDBCollapse isOpen={this.state.collapse} navbar className="prueba">

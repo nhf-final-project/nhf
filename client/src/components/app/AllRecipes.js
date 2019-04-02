@@ -6,9 +6,10 @@ import Footer from "./Footer"
 import SearchByHealthLabel from "./SearchByHealthLabel"
 import "./RecipeCard.css"
 
+import { MDBInput, MDBContainer } from 'mdbreact';
+
+
 // import backgroundImage from '../../images/background-recipe-01-edit.jpg'
-
-
 
 export default class AllRecipes extends Component {
 
@@ -33,23 +34,14 @@ export default class AllRecipes extends Component {
     this.service = new RecipesService();
   }
 
-
   getAllRecipes = () => {
     return this.service.getAllRecipes()
-      .then(recipe => {
-        this.setState({...this.state,
-          recipes: recipe,
-          copia: recipe,
-        })
-      })
+      .then(recipe => this.setState({...this.state, recipes: recipe, copia: recipe }))
   }
-
-
 
   searchRecipe = (searchName, searchValue) => {
 
     let recipesCopy = [...this.state.copia]
-  
 
     recipesCopy = recipesCopy.filter(recipe => {
       if(searchValue.length !== 0 || this.state.name.length !== 0) {
@@ -64,11 +56,7 @@ export default class AllRecipes extends Component {
         copia:recipesCopy,
         filtered: false
       })
-
   }
-
-
-
 
   filterRecipe = (e) => {
     let { checked, id, name, value } = e.target
@@ -78,7 +66,6 @@ export default class AllRecipes extends Component {
     // if(expression.test(id)){
     //   console.log(id)
     // }
-   
 
     if (checked) {
       let arrayFilter = [...this.state.searchValue]
@@ -87,10 +74,7 @@ export default class AllRecipes extends Component {
         [name]: value,
         searchValue: arrayFilter,
         filtered: true,
-        checkBoxes: {
-          ...this.state.checkBoxes,
-          [id]:checked
-        }
+        checkBoxes: { ...this.state.checkBoxes, [id]:checked }
 
       }, () => this.searchRecipe(this.state.name, this.state.searchValue))
     } else {
@@ -100,13 +84,9 @@ export default class AllRecipes extends Component {
           [name]: value,
           searchValue: arrayFilter,
           filtered: false,
-          checkBoxes: {
-            ...this.state.checkBoxes,
-            [id]:checked
-          }
+          checkBoxes: { ...this.state.checkBoxes, [id]:checked }
       },() =>  this.lookForRecipe())  
     }
-
   }
 
   lookForRecipe = () => {
@@ -119,34 +99,23 @@ export default class AllRecipes extends Component {
     },this.state.recipes).filter(recipe => recipe.label.toLowerCase().includes(this.state.name.toLowerCase()))
 
     console.log(filter)
-    this.setState({
-      copia:filter,
-      
-    })
-
-
+    this.setState({ copia:filter })
   }
 
-
-
-  componentDidMount() {
-    this.getAllRecipes()
-  }
-
-
+  componentDidMount() { this.getAllRecipes() }
 
   render() {
     return (
       <div className="recipe-details-main">
           <NavbarPage />
           <SearchByHealthLabel recipes={this.state.recipes} copia={this.state.copia} searchValue={this.state.searchValue} searchRecipe={this.searchRecipe} filterRecipe={this.filterRecipe} />
-
-          <form>  
-            <input type="text" name="name" value={this.state.name}  onChange={(e) => {this.filterRecipe(e)}}></input> 
-          </form>
-          
-          {Array.isArray(this.state.copia) ? this.state.copia.map((oneRecipe, index) => <RecipeCard key={index} {...oneRecipe} />) : null}
- 
+          <MDBContainer>
+            <MDBInput label="Search" size="lg" outline icon="search" type="text" name="name" value={this.state.name}  onChange={(e) => {this.filterRecipe(e)}} />
+          </MDBContainer>
+          <div className="row mb-5 p-5">
+            {Array.isArray(this.state.copia) ? this.state.copia.map((oneRecipe, index) => <RecipeCard key={index} {...oneRecipe} />) : null}
+          </div>
+          <Footer />
       </div>
     )
   }

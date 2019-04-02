@@ -1,5 +1,17 @@
 .one-recipe-card {
-  width: 300px;
+  width: 250px;
   margin: 10px auto;
-  padding: 100px;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.one-recipe-card img {
+  object-fit: cover;
+  width: 250px;
+  height: 350px;
+  border-radius: 9px;
+}
+
+.zoom {
+  border-radius: 9px;
 }
