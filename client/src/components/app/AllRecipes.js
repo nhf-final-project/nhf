@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 import RecipesService from "../../service/recipes-service";
-// import NavbarPage from "./NavbarPage"
+import NavbarPage from "./NavbarPage"
 import RecipeCard from "./RecipeCard"
 import SearchByHealthLabel from "./SearchByHealthLabel"
+import { MDBRow, MDBCol, MDBView, MDBMask } from 'mdbreact';
 import { array } from 'prop-types';
+import "./RecipeCard.css"
+
+// import backgroundImage from '../../images/background-recipe-01-edit.jpg'
+
 
 
 export default class AllRecipes extends Component {
@@ -22,7 +27,8 @@ export default class AllRecipes extends Component {
         ["Sugar-Conscious"]: false,
         ["Tree-Nut-Free"]: false,
         ["Alcohol-Free"]: false
-      }
+      },
+      // backgroundImage: backgroundImage
     }
     this.service = new RecipesService();
   }
@@ -118,16 +124,20 @@ export default class AllRecipes extends Component {
 
     return (
 
+      // <MDBView>
+      //  <MDBMask overlay="black-light" className="recipe-details-main">
       <div>
-        <SearchByHealthLabel recipes={this.state.recipes} copia={this.state.copia} searchValue={this.state.searchValue} searchRecipe={this.searchRecipe} filterRecipe={this.filterRecipe} />
+     
+          <NavbarPage />
 
-        <div className="row">
-          {/* <NavbarPage /> */}
-
+          <SearchByHealthLabel recipes={this.state.recipes} copia={this.state.copia} searchValue={this.state.searchValue} searchRecipe={this.searchRecipe} filterRecipe={this.filterRecipe} />
+          
           {this.state.recipes.map((oneRecipe, index) => <RecipeCard key={index} {...oneRecipe} />)}
-        </div>
-
+ 
       </div>
+      //   </MDBMask>
+      // </MDBView>
+     
 
     )
   }
