@@ -17,6 +17,7 @@ export default class AllRecipes extends Component {
     super(props)
     this.state = {
       searchValue: [],
+      name: "",
       recipes: [],
       copia: [],
       filtered: false,
@@ -33,6 +34,7 @@ export default class AllRecipes extends Component {
     this.service = new RecipesService();
   }
 
+
   getAllRecipes = () => {
     return this.service.getAllRecipes()
       .then(recipe => {
@@ -43,14 +45,18 @@ export default class AllRecipes extends Component {
       })
   }
 
-  searchRecipe = (searchValue) => {
+
+
+  searchRecipe = (searchName, searchValue) => {
 
     let recipesCopy = [...this.state.copia]
+  
 
     recipesCopy = recipesCopy.filter(recipe => {
-      if(searchValue.length !== 0) {
-
-        return recipe.healthLabels.includes(searchValue[searchValue.length - 1])          
+      if(searchValue.length !== 0 || this.state.name.length !== 0) {
+        // return recipe.ingredientLines.join().includes(searchName)
+        return recipe.healthLabels.includes(searchValue[searchValue.length - 1])  &&
+                recipe.label.toLowerCase().includes(searchName.toLowerCase())         
         }       
       })
       
@@ -62,19 +68,24 @@ export default class AllRecipes extends Component {
 
   }
 
-  filterRecipe = (e) => {
-    let { checked, id } = e.target
 
+
+
+  filterRecipe = (e) => {
+    let { checked, id, name, value } = e.target
+  
     // let expression = /^[0-9.]$/
     // console.log(expression.test(id))
     // if(expression.test(id)){
     //   console.log(id)
     // }
+   
 
     if (checked) {
       let arrayFilter = [...this.state.searchValue]
       arrayFilter.push(id)
       this.setState({
+        [name]: value,
         searchValue: arrayFilter,
         filtered: true,
         checkBoxes: {
@@ -82,11 +93,12 @@ export default class AllRecipes extends Component {
           [id]:checked
         }
 
-      }, () => this.searchRecipe(this.state.searchValue))
+      }, () => this.searchRecipe(this.state.name, this.state.searchValue))
     } else {
       let arrayFilter = [...this.state.searchValue]
       arrayFilter = arrayFilter.filter(fil => fil !== id)
       this.setState({
+          [name]: value,
           searchValue: arrayFilter,
           filtered: false,
           checkBoxes: {
@@ -111,17 +123,26 @@ export default class AllRecipes extends Component {
     })
     const filter = keys.reduce((acc, key) => {
       return acc.filter(recipe => recipe.healthLabels.includes(key))
-    },this.state.recipes)
+    },this.state.recipes).filter(recipe => recipe.label.toLowerCase().includes(this.state.name.toLowerCase()))
+
     console.log(filter)
+    this.setState({
+      copia:filter,
+      
+    })
+
 
   }
+
+
 
   componentDidMount() {
     this.getAllRecipes()
   }
 
-  render() {
 
+
+  render() {
     return (
 
       // <MDBView>
@@ -131,8 +152,12 @@ export default class AllRecipes extends Component {
           <NavbarPage />
 
           <SearchByHealthLabel recipes={this.state.recipes} copia={this.state.copia} searchValue={this.state.searchValue} searchRecipe={this.searchRecipe} filterRecipe={this.filterRecipe} />
+
+          <form>  
+            <input type="text" name="name" value={this.state.name}  onChange={(e) => {this.filterRecipe(e)}}></input> 
+          </form>
           
-          {this.state.recipes.map((oneRecipe, index) => <RecipeCard key={index} {...oneRecipe} />)}
+          {Array.isArray(this.state.copia) ? this.state.copia.map((oneRecipe, index) => <RecipeCard key={index} {...oneRecipe} />) : null}
  
       </div>
       //   </MDBMask>
