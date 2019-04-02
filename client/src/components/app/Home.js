@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import NavbarPage from "./NavbarPage"
-import Intro from "./Intro"
+import Reviews from "./Reviews"
+import Footer from "./Footer"
 
 
 
@@ -20,6 +21,8 @@ export default class Home extends Component {
         
         <HomeSection />
         <HomeSection />
+        <Reviews />
+        <Footer />
         {/* <CardExample />
 
         <Signup2 />
