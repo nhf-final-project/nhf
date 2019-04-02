@@ -112,10 +112,6 @@
     background-position: center center;
 } 
 
-.one-recipe-card {
-  width: 300px;
-  margin: 10px auto;
-}
 
 /* PROFILE */
 
@@ -144,9 +140,7 @@
   font-size: 4rem;
 }
 
-.primary-nutrients-modal ul li:last-child {
-  border-bottom: 1px solid rgba(0,0,0,0.2);
-}
+
 
 
 @keyframes App-logo-spin {

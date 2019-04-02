@@ -38,7 +38,7 @@ class Login extends Component {
                 <MDBMask overlay="black-light" className="flex-center flex-column text-white">
                 <MDBContainer className="wrapper p-2 create-account">
                     <h2 className="text-center text-white">Login</h2>
-                    <h3 class="font-weight-bold pl-0 my-4 text-center text-white"><strong>Personal Area</strong></h3>
+                    <h3 className="font-weight-bold pl-0 my-4 text-center text-white"><strong>Personal Area</strong></h3>
                     <MDBRow className="wrapper-inside">
                         <MDBCol md="8">
                             <form onSubmit={this.handleFormSubmit}>

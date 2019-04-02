@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ProfileImage from '../../images/avatar.png'
+import ProfileService from "../../service/profile-service";
 import { Link } from 'react-router-dom'
+import RecipeCard from "./RecipeCard"
 
 // import backgroundImage from '../../images/profile-background.jpg'
 
@@ -11,9 +13,27 @@ export default class Profile extends Component {
     super(props)
     this.state = { 
       profileImage: ProfileImage,
+      recipes: []
       // backgroundImage: backgroundImage
     }
+    this.service = new ProfileService();
+
   }
+
+  getSavedRecipes = () => {
+    return this.service.getSavedRecipes()
+      .then(recipe => {
+        console.log(recipe)
+        this.setState({
+          recipes: recipe.recipes      
+        })
+      })
+  }
+
+  componentDidMount() {
+    this.getSavedRecipes()
+  }
+
 
 
   render() {
@@ -39,6 +59,10 @@ export default class Profile extends Component {
               <h3>Following</h3>         
           </div>    
         </header>
+
+        <section>
+          {this.state.recipes.map((oneRecipe, index) => <RecipeCard key={index} {...oneRecipe} />)}
+        </section>
         
       </main>
     )
