@@ -128,7 +128,7 @@ export default class EditProfileForm extends Component {
 
     this.services.updateProfile(this.props.user._id, this.state.edit)
     //     .then(x => this.props.refreshCoasters())
-
+    
  
     }
 

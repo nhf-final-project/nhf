@@ -3,135 +3,135 @@ const Schema = mongoose.Schema;
 
 const calendarSchema = new Schema({
 
-    meals: {
+    
         breakfast: {
             Monday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+    
             },
             Tuesday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+        
             },
             Wednesday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+          
             },
             Thursday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+         
             },
             Friday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+         
             },
             Saturday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+        
             },
             Sunday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+          
             }
         },
         lunch: {
             Monday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+           
             },
             Tuesday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Wednesday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Thursday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+   
             },
             Friday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+          
             },
             Saturday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+  
             },
             Sunday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             }
         },
         snack: {
             Monday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Tuesday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+  
             },
             Wednesday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Thursday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Friday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Saturday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Sunday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             }
         },
         dinner: {
             Monday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Tuesday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Wednesday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Thursday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Friday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Saturday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             },
             Sunday: {
-                type: Array,
-                required: true,
+                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
+
             }
-        }          
-    },
+        } 
+
     
-    recipes: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }]
+
 },
     {
         timestamps: true
     });
 
-const Calendar = mongoose.model('User', calendarSchema);
+const Calendar = mongoose.model('Calendar', calendarSchema);
 module.exports = Calendar;
 

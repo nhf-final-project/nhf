@@ -3,6 +3,8 @@ const profileRoutes = express.Router();
 
 const Recipe = require('../models/Recipe');
 const User = require('../models/User');
+const Calendar = require('../models/Calendar');
+
 
 
 profileRoutes.post('/profile', (req, res, next) => {
@@ -30,6 +32,34 @@ profileRoutes.post('/profile/edit', (req, res, next) => {
         next()
     })
 
+})
+
+
+profileRoutes.post('/profile/calendar', (req, res, next) => {
+    
+    console.log(req.body)
+    console.log(req.user)
+
+    // const {username, height, weight, age, waist, hip, neck, bodyFat, bodyMusscle, tmb, trainingDays, indexWH, activityLevel, goal, weightGoal } = req.body
+
+    // User.findByIdAndUpdate(req.user._id, {calendar: req.body.calendar}, {new:true})
+    //   .populate({
+    //       path: 'calendar_id', model: 'Calendar',
+    //          populate: {path: 'recipes_id', model: 'Recipe'}
+    //   }).exec(function(err,data){ 
+    //     if(!err){
+    //        console.log('data all',data)
+    //      }
+    //      else{
+    //        console.log('err err err',err)
+    //       }
+    //     })
+    //   .then(user => res.json({user}))
+    //   .catch(err => {
+    //       console.log('Error while finding one markerCoins', err)
+    //       next()
+    // })
+        
 })
 
 

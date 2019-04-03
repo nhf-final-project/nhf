@@ -26,5 +26,18 @@ export default class ProfileService {
             })
 
     }
+
+    getCalendar = (userId, calendarId) => {
+
+        return this.service.post(`profile/calendar`, {userId, calendarId})
+            .then(res => {
+                console.log(res);
+                return res.data;
+            })
+
+    }
+
+
+
  
 }

@@ -21,12 +21,10 @@ passport.use(new LocalStrategy({
     usernameField: "username",
     passwordField: "password"
 },(username, password, next) => {
-    User.findOne({ username }, (err, foundUser) => {
-        if (err) {
-            next(err);
-            return;
-        }
-
+    User.findOne({ username })
+    .populate("calendar")
+    .then(foundUser => {
+       
         if (!foundUser) {
             next(null, false, { message: 'Incorrect username.' });
             return;
@@ -38,5 +36,6 @@ passport.use(new LocalStrategy({
         }
 
         next(null, foundUser);
-    });
+    })
+    .catch(err=> next(err))
 }));

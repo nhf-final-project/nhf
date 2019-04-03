@@ -44,7 +44,7 @@ const userSchema = new Schema({
       default: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Leonardo%27s_Avatar.png"
     },
     recipes: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
-    calendar: [{ type: Schema.Types.ObjectId, ref: 'Calendar' }],
+    calendar: { type: Schema.Types.ObjectId, ref: 'Calendar' },
 },
     {
         timestamps: true
