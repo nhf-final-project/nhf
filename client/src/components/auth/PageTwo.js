@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AuthService from "../../service/auth-service";
 import Stepper from "./Stepper"
 import './PageTwo.css'
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdbreact';
 
 
 class PageTwo extends Component {

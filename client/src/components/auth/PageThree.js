@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import AuthService from "../../service/auth-service";
-import { Link } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol  } from 'mdbreact';
 import Stepper from "./Stepper"
 
 
 class PageThree extends Component {
   constructor(props) {
     super(props);
-
     this.service = new AuthService();
   }
 
@@ -67,13 +64,11 @@ class PageThree extends Component {
                         <label>Weight goal</label>
                         <input type="text" name="weightGoal" className="form-control" onChange={e => this.handleChange(e)} />
                     </div>
-                    <button className="btn btn-outline-light btn-account btn-rounded" onClick={this.props.handleFormSubmit}>Continue</button>
+                    <button className="btn btn-outline-light btn-account btn-rounded" onClick={this.props.handleFormSubmit}>Register</button>
                     </form>
                 </MDBCol>
             </MDBRow>
-  
         </MDBContainer>
-      
     );
   }
 }

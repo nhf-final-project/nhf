@@ -1,8 +1,14 @@
 .profile-header {
-  background: salmon;
-  height: 50vh;
+  background-image: url('../../images/background-recipe-01-edit.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  height: 30vh;
 }
 
 .profile-image {
-  height: 200px;
+  height: 19vh;
+  border: 2px solid white;
+  border-radius: 50%;
+  
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import RecipesService from "../../service/recipes-service";
-import NavbarPage from "./NavbarPage"
+import RecipesService from "../../../service/recipes-service";
+import NavbarPage from "../Navbar-Footer/NavbarPage"
 import RecipeCard from "./RecipeCard"
-import Footer from "./Footer"
+import Footer from "../Navbar-Footer/Footer"
 import SearchByHealthLabel from "./SearchByHealthLabel"
 import "./RecipeCard.css"
 

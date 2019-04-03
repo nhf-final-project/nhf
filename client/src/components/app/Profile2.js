@@ -1,69 +1,42 @@
 import React, { Component } from 'react'
 import ProfileImage from '../../images/avatar.png'
 import ProfileService from "../../service/profile-service";
-import { Link } from 'react-router-dom'
-import RecipeUserCollection from "./RecipeUserCollection"
+import EditProfileForm from './EditProfileForm2';
+import Calendar from './Calendar';
+import './Profile.css'
+import RecipeUserCollection from './RecipeUserCollection'
+
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
+import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import EditProfileForm from './EditProfileForm';
-
-
-// import backgroundImage from '../../images/profile-background.jpg'
-
 
 function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
+  return ( <Typography component="div" style={{ padding: 8 * 3 }}>{props.children}</Typography> );
 }
 
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+TabContainer.propTypes = { children: PropTypes.node.isRequired };
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
 });
 
-
 class Profile extends Component {
-
   constructor(props) {
     super(props)
     this.state = { 
-      profileImage: ProfileImage,
       recipes: [],
-      value: 0,
-
-      // backgroundImage: backgroundImage
+      value: "0",
     }
     this.service = new ProfileService();
-
   }
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-    
-  toggle = tab => () => {
-    if (this.state.activeItem !== tab) {
-    this.setState({
-      activeItem: tab
-    });
-    }
-  }
-
+  handleChange = (event, value) => { this.setState({ value }) };
 
   getSavedRecipes = () => {
     return this.service.getSavedRecipes()
@@ -75,84 +48,47 @@ class Profile extends Component {
       })
   }
 
-
-
-  componentDidMount() {
-    this.getSavedRecipes()
-  }
-
+  componentDidMount() { this.getSavedRecipes() }
 
   render() {
     const { classes } = this.props;
-    const { loggedInUser, value } = this.props
+    const { loggedInUser } = this.props
 
     return (
+      
       <main>
-
-        <header className="profile-header">
-          <div>
-             <img src="/open-iconic/svg/menu.svg"/>
-             <a id="profile-menu">Menu</a>
-             <Link to={"/recipes"}> Go to recipes</Link>
-             {/* <Link to="/profile">Go to profile</Link> */}
-          </div>
+        <header className="profile-header text-center p-3">
           <div className="user-greeting">
-              <h1><span>Hello</span>, {loggedInUser.username}!</h1>
-              <img className="profile-image" src={this.state.profileImage}></img>
+              <h2><span>Hello</span>, {loggedInUser.username}!</h2>
+              <img className="profile-image img-fluid z-depth-1" src={ProfileImage} alt="profile"></img>
           </div>
-          <div>
-              <h3>My collection</h3>
-              <h3>Following</h3>         
-          </div> 
-
-          <EditProfileForm user={loggedInUser}/>
-
         </header>
-
-
-
-
-
-
-        {/* <div className={classes.root}>
-        <AppBar position="static" color="default">
-          <Tabs
-            value={value}
-            onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="scrollable"
-            scrollButtons="auto"
-          >
-            <Tab label="Item One" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
-            <Tab label="Item Four" />
-            <Tab label="Item Five" />
-            <Tab label="Item Six" />
-            <Tab label="Item Seven" />
-          </Tabs>
-        </AppBar>
-        {value === 0 && <TabContainer>Item One</TabContainer>}
-        {value === 1 && <TabContainer>Item Two</TabContainer>}
-        {value === 2 && <TabContainer>Item Three</TabContainer>}
-        {value === 3 && <TabContainer>Item Four</TabContainer>}
-        {value === 4 && <TabContainer>Item Five</TabContainer>}
-        {value === 5 && <TabContainer>Item Six</TabContainer>}
-        {value === 6 && <TabContainer>Item Seven</TabContainer>}
-      </div> */}
-{/* 
-        <section>
-          {this.state.recipes.map((oneRecipe, index) => <RecipeUserCollection key={index} {...oneRecipe} />)}
-        </section> */}
-        
+        <div className={classes.root}>
+          <Paper className={classes.root}>
+            <Tabs value={this.state.value} onChange={this.handleChange}
+            
+            indicatorColor="secondary"
+            textColor="secondary"
+            centered
+            >
+              <Tab value="0" label="Recipes Collection" />
+              <Tab value="1" label="Calendar" />
+              <Tab value="2" label="Profile" />
+            </Tabs>
+          </Paper>
+          {this.state.value === "0" && <TabContainer>
+            <section>
+              {this.state.recipes.map((oneRecipe, index) => <RecipeUserCollection key={index} {...oneRecipe} />)}
+            </section>
+          </TabContainer>}
+          {this.state.value === "1" && <TabContainer><Calendar user={loggedInUser} /></TabContainer>}
+          {this.state.value === "2" && <TabContainer><EditProfileForm user={loggedInUser}/></TabContainer>}
+        </div>
       </main>
     )
   }
 }
 
-Profile.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+Profile.propTypes = { classes: PropTypes.object.isRequired };
 
 export default withStyles(styles)(Profile);

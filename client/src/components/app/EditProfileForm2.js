@@ -16,14 +16,101 @@ export default class EditProfileForm extends Component {
         tmb: props.user.tmb,        trainingDays: props.user.trainingDays, indexWH: props.user.indexWH,  activityLevel: props.user.activityLevel,  goal: props.user.goal,     weightGoal: props.user.weightGoal
       }
     }
+    this.indexWH =  this.props.user.indexWH;
+    this.bodyFat = this.props.user.bodyFat;
+    this.tmb = this.props.user.tmb;
+    this.bodyMusscle = this.props.user.bodyMusscle;
 
     this.services = new ProfileService()
    
 }
 
+  //FORMULAS
+
+  bodyFatGender = (waist, hip, neck, height, value) => {
+    if (value === "male") { this.bodyFatMale(waist, neck, height) } else
+    if (value === "female") { this.bodyFatFemale(waist, hip, neck, height) }
+  }
+
+  bodyFatMale = (waist, neck, height) => 
+  this.bodyFat = parseFloat(495 / (1.0324 - (0.19077 * Math.log10(waist - neck)) + 0.15456 * (Math.log10(height))) - 450).toFixed(2)
+
+  bodyFatFemale = (waist, hip, neck, height) => 
+  this.bodyFat = parseFloat(495 / (1.29579 - (0.35004 * Math.log10(waist + hip - neck)) + 0.22100 * (Math.log10(height))) - 450).toFixed(2)
+
+  tmbCalculator = (weight, height,  age, number)  => 
+  this.tmb = (10 * weight) + (6.25 * height) - (5 * age) + number
+  
+  tmbGender = (gender, weight, height,  age) => {
+    if (gender === "male") {
+      this.tmbCalculator(weight, height, age, 5)
+    } else if (gender === "female") {
+      this.tmbCalculator(weight, height, age, -161)
+    } 
+  }
+
 
   handleChange = e => {
     const { name, value } = e.target;
+
+    // -------------------------------------------------------------
+    // ----- indexWH 
+    // -------------------------------------------------------------
+
+    if(name === "waist" && this.props.user.height){ this.indexWH = parseFloat(value / this.props.user.height).toFixed(2) }
+    else if(name === "height" && this.props.user.waist) { this.indexWH = parseFloat(this.props.user.waist / value).toFixed(2) }
+    this.props.user.indexWH = this.indexWH;
+
+    // -------------------------------------------------------------
+    // ----- bodyfat 
+    // -------------------------------------------------------------
+
+    if (name === "gender" && this.props.user.waist && this.props.user.neck && this.props.user.hip && this.props.user.height) {
+      this.bodyFatGender (this.props.user.waist, this.props.user.hip, this.props.user.neck, this.props.user.height, value)
+    } else
+    if (this.props.user.gender && name === "waist" && this.props.user.neck && this.props.user.hip && this.props.user.height) {
+      this.bodyFatGender (value, this.props.user.hip, this.props.user.neck, this.props.user.height, this.props.user.gender)
+    } else
+    if (this.props.user.gender && this.props.user.waist && name === "neck" && this.props.user.hip && this.props.user.height) {
+      this.bodyFatGender (this.props.user.waist, this.props.user.hip, value, this.props.user.height, this.props.user.gender)
+    } else
+    if (this.props.user.gender && this.props.user.waist && this.props.user.neck && name === "hip" && this.props.user.height) {
+      this.bodyFatGender (this.props.user.waist, value, this.props.user.neck, this.props.user.height, this.props.user.gender)
+    } else
+    if (this.props.user.gender && this.props.user.waist && this.props.user.neck && this.props.user.hip && name === "height") {
+      this.bodyFatGender (this.props.user.waist, this.props.user.hip, this.props.user.neck, value, this.props.user.gender)
+    }
+
+    this.props.user.bodyFat = this.bodyFat
+
+    // -------------------------------------------------------------
+    // ----- bodyMusscle 
+    // -------------------------------------------------------------
+    
+    this.bodyMusscle = parseFloat(this.props.user.weight - (this.props.user.weight * (this.bodyFat / 100))).toFixed(2)
+
+    this.props.user.bodyMusscle = this.bodyMusscle;
+
+    // -------------------------------------------------------------
+    // ----- tmb 
+    // -------------------------------------------------------------
+
+    if (name === "gender" && this.props.user.weight && this.props.user.height && this.props.user.age) { 
+      this.tmbGender(value, this.props.user.weight, this.props.user.height, this.props.user.age)
+    } else
+    if (this.props.user.gender && name === "weight" && this.props.user.height && this.props.user.age) {
+      this.tmbGender(this.props.user.gender, value, this.props.user.height, this.props.user.age) 
+    } else
+    if (this.props.user.gender && this.props.user.weight && name === "height" && this.props.user.age) {
+      this.tmbGender(this.props.user.gender, this.props.user.weight, value, this.props.user.age)
+    } else
+    if (this.props.user.gender && this.props.user.weight && this.props.user.height && name === "age") {
+      this.tmbGender(this.props.user.gender, this.props.user.weight, this.props.user.height, value)
+    }
+
+    this.props.user.tmb = this.tmb
+
+
     console.log(name, value)
     this.setState({
         edit: {
@@ -31,33 +118,35 @@ export default class EditProfileForm extends Component {
             [name]: value
         }
     })
+    console.log(this.state.edit)
   }
 
 
 
   handleSubmit = e => {
+    const { name, value } = e.target;
 
     e.preventDefault()
 
     this.services.updateProfile(this.props.user._id, this.state.edit)
-    //     .then(x => this.props.refreshCoasters())
-
-    // this.setState({
-    //   edit: {
-    //     username: "",   height: "",       weight: "",
-    //     age: "",        waist: "",        hip: "",      neck: "",           bodyFat: "",  bodyMusscle: "",
-    //     tmb: "",        trainingDays: "", indexWH: "",  activityLevel: "",  goal: "",     weightGoal: ""
-    //   }
-    // })
+        .then(x => this.setState({
+          edit: {
+            ...this.state.edit,
+            [name]: value
+          }
+        }, ()=>console.log(this.state.edit)))
+    
  
 }
 
-
-
+componentWillReceiveProps(nextProps) {
+  this.setState({...this.state.edit, loggedInUser: nextProps["userInSession"]})
+}
 
   render() {
     const {user} = this.props
     const {edit} = this.state
+    console.log(this.state.edit.weight)
  
     return (
       <div className="edit-profile">
@@ -66,7 +155,6 @@ export default class EditProfileForm extends Component {
           <MDBCol md="3">
               <MDBInput label="Username"            icon="user"                       group type="text"     validate error="wrong" success="right" name="username" value={edit.username} onChange={e => this.handleChange(e)} />
               <MDBInput label="Password"            icon="lock"                       group type="password" validate error="wrong" success="right" name="password" onChange={e => this.handleChange(e)} />
-              <br/><button className="btn btn-outline-light btn-account btn-rounded" type="submit">Edit</button>
             
             </MDBCol>
             <MDBCol md="2">
@@ -127,6 +215,7 @@ export default class EditProfileForm extends Component {
                     </div>
             </MDBCol>
         </MDBRow>
+        <br/><button className="btn btn-outline-light btn-account btn-rounded" type="submit">Edit</button>
 
         </form>  
 

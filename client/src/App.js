@@ -3,17 +3,17 @@ import './App.css';
 
 // Components
 
-import NavbarPage from "./components/app/NavbarPage"
+import NavbarPage from "./components/app/Navbar-Footer/NavbarPage"
 import Signup2 from "./components/auth/Signup2"
-import Home from "./components/app/Home"
+import Home from "./components/app/Home/Home"
 import Login from "./components/auth/Login"
-import Profile from "./components/app/Profile"
+import Profile from "./components/app/Profile2"
 import ProtectedRoutes from "./components/auth/ProtectedRoutes"
-import AllRecipes from './components/app/AllRecipes';
-import RecipeDetails from './components/app/RecipeDetails';
+import AllRecipes from './components/app/Recipes/AllRecipes';
+import RecipeDetails from './components/app/Recipes/RecipeDetails';
 
 // Routing & DOM
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 
 // Service
@@ -65,8 +65,10 @@ class App extends Component {
       console.log("logeado")
       return (
         <div>
+          {/* <NavbarPage /> */}
           <Switch>
              {/* <Route exact path='/recipes/:id' component={RecipeDetails} user={this.loggedInUser} />             */}
+            {/* <ProtectedRoutes user={this.state.loggedInUser} path='/' component={NavbarPage} /> */}
             <Route exact path='/recipes' component={AllRecipes} />
             <Route exact path='/recipes/:id' component={RecipeDetails} user={this.loggedInUser} />
             <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
@@ -77,6 +79,7 @@ class App extends Component {
     else {
       return (
         <div>
+          <NavbarPage />
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/recipes' component={AllRecipes} />
@@ -99,10 +102,7 @@ class App extends Component {
         </div>
       )
     }
-
-
   }
-
 }
 
 

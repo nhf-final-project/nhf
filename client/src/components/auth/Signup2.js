@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AuthService from "../../service/auth-service";
 import './Signup2.css'
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask } from 'mdbreact';
@@ -76,13 +76,13 @@ class CarouselPage extends Component {
       
       <MDBCarousel interval={false} multiItem={false} activeItem={1} length={3} showControls={false} showIndicators={true} className="z-depth-1 signup">
         <MDBCarouselInner>
+          
         {this.state.formActivePanel1 === 1 &&
           (
           <MDBCarouselItem itemId="1" id="step-1">
             <MDBView src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
               <MDBMask overlay="black-light" className="flex-center flex-column text-white">
                 <PageOne updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} error={this.state.error} />
-                <Link to={"/"} className="btn btn-outline-light btn-account btn-rounded m-5"><i className="fas fa-home mr-2"></i> Home</Link>
               </MDBMask>
             </MDBView> 
           </MDBCarouselItem>
@@ -91,7 +91,6 @@ class CarouselPage extends Component {
             <MDBView src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
               <MDBMask overlay="black-light" className="flex-center flex-column text-white">
                 <PageTwo updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} />
-                <Link to={"/"} className="btn btn-outline-light btn-account btn-rounded m-5"><i className="fas fa-home mr-2"></i> Home</Link>
               </MDBMask>            
             </MDBView>
           </MDBCarouselItem>
@@ -99,7 +98,6 @@ class CarouselPage extends Component {
             <MDBView  src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
               <MDBMask overlay="black-light" className="flex-center flex-column text-white">
                 <PageThree updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} />
-                <Link to={"/"} className="btn btn-outline-light btn-account btn-rounded m-5"><i className="fas fa-home mr-2"></i> Home</Link>                
               </MDBMask>            
             </MDBView>
           </MDBCarouselItem>

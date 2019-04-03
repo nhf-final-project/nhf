@@ -140,6 +140,9 @@
   font-size: 4rem;
 }
 
+.input:focus {
+  outline: none !important;
+}
 
 
 
