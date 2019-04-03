@@ -70,6 +70,9 @@ app.use('/api', recipesRoutes);
 const profileRoutes = require('./routes/profile-routes');
 app.use('/api', profileRoutes);
 
+const uploadRoutes = require('./routes/fileUpload-routes')
+app.use('/api', uploadRoutes)
+
 app.use((req, res) => { res.sendFile(`${__dirname}/public/index.html`); })
 
 module.exports = app;

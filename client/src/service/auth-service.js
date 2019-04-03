@@ -33,5 +33,14 @@ export default class authService {
             .then(response => response.data)
     }
 
+    handleUpload = theFile => {
+
+        console.log('file in service: ', theFile)
+
+        return this.service.post('/upload', theFile)
+            .then(res => res.data)
+            .catch(err => console.log(err));
+    }
+
 
 }

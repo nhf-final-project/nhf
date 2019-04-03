@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ProfileImage from '../../images/avatar.png'
 import ProfileService from "../../service/profile-service";
 import { Link } from 'react-router-dom'
 import RecipeUserCollection from "./RecipeUserCollection"
@@ -9,8 +8,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import EditProfileForm from './EditProfileForm2';
 import './Profile.css'
+import EditProfileForm from './EditProfileForm';
+import Calendar from './Calendar';
+
+
 
 // import backgroundImage from '../../images/profile-background.jpg'
 
@@ -41,7 +43,6 @@ class Profile extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-      profileImage: ProfileImage,
       recipes: [],
       value: 0,
 
@@ -76,7 +77,6 @@ class Profile extends Component {
   }
 
 
-
   componentDidMount() {
     this.getSavedRecipes()
   }
@@ -85,7 +85,7 @@ class Profile extends Component {
   render() {
     const { classes } = this.props;
     const { loggedInUser, value } = this.props
-
+    console.log(loggedInUser)
     return (
       <main>
 
@@ -98,14 +98,16 @@ class Profile extends Component {
           </div>
           <div className="user-greeting">
               <h1><span>Hello</span>, {loggedInUser.username}!</h1>
-              <img className="profile-image" src={this.state.profileImage}></img>
+              <img className="profile-image" src={loggedInUser.image}></img>
           </div>
           <div>
               <h3>My collection</h3>
               <h3>Following</h3>         
           </div> 
 
-          <EditProfileForm user={loggedInUser}/>
+          <EditProfileForm user={loggedInUser} />
+          <Calendar user={loggedInUser} />
+
 
         </header>
 

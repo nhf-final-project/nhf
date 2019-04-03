@@ -13,15 +13,103 @@ export default class EditProfileForm extends Component {
         age: props.user.age,        waist: props.user.waist,        hip: props.user.hip,      neck: props.user.neck,           bodyFat: props.user.bodyFat,  bodyMusscle: props.user.bodyMusscle,
         tmb: props.user.tmb,        trainingDays: props.user.trainingDays, indexWH: props.user.indexWH,  activityLevel: props.user.activityLevel,  goal: props.user.goal,     weightGoal: props.user.weightGoal
       }
+      
     }
+    this.indexWH =  this.props.user.indexWH;
+    this.bodyFat = this.props.user.bodyFat;
+    this.tmb = this.props.user.tmb;
+    this.bodyMusscle = this.props.user.bodyMusscle;
 
-    this.services = new ProfileService()
-   
+      this.services = new ProfileService()
+       
 }
+
+//FORMULAS
+
+  bodyFatGender = (waist, hip, neck, height, value) => {
+    if (value === "male") { this.bodyFatMale(waist, neck, height) } else
+    if (value === "female") { this.bodyFatFemale(waist, hip, neck, height) }
+  }
+
+  bodyFatMale = (waist, neck, height) => 
+  this.bodyFat = parseFloat(495 / (1.0324 - (0.19077 * Math.log10(waist - neck)) + 0.15456 * (Math.log10(height))) - 450).toFixed(2)
+
+  bodyFatFemale = (waist, hip, neck, height) => 
+  this.bodyFat = parseFloat(495 / (1.29579 - (0.35004 * Math.log10(waist + hip - neck)) + 0.22100 * (Math.log10(height))) - 450).toFixed(2)
+
+  tmbCalculator = (weight, height,  age, number)  => 
+  this.tmb = (10 * weight) + (6.25 * height) - (5 * age) + number
+  
+  tmbGender = (gender, weight, height,  age) => {
+    if (gender === "male") {
+      this.tmbCalculator(weight, height, age, 5)
+    } else if (gender === "female") {
+      this.tmbCalculator(weight, height, age, -161)
+    } 
+  }
 
 
   handleChange = e => {
     const { name, value } = e.target;
+
+    // -------------------------------------------------------------
+    // ----- indexWH 
+    // -------------------------------------------------------------
+
+    if(name === "waist" && this.props.user.height){ this.indexWH = parseFloat(value / this.props.user.height).toFixed(2) }
+    else if(name === "height" && this.props.user.waist) { this.indexWH = parseFloat(this.props.user.waist / value).toFixed(2) }
+    this.props.user.indexWH = this.indexWH;
+
+    // -------------------------------------------------------------
+    // ----- bodyfat 
+    // -------------------------------------------------------------
+
+    if (name === "gender" && this.props.user.waist && this.props.user.neck && this.props.user.hip && this.props.user.height) {
+      this.bodyFatGender (this.props.user.waist, this.props.user.hip, this.props.user.neck, this.props.user.height, value)
+    } else
+    if (this.props.user.gender && name === "waist" && this.props.user.neck && this.props.user.hip && this.props.user.height) {
+      this.bodyFatGender (value, this.props.user.hip, this.props.user.neck, this.props.user.height, this.props.user.gender)
+    } else
+    if (this.props.user.gender && this.props.user.waist && name === "neck" && this.props.user.hip && this.props.user.height) {
+      this.bodyFatGender (this.props.user.waist, this.props.user.hip, value, this.props.user.height, this.props.user.gender)
+    } else
+    if (this.props.user.gender && this.props.user.waist && this.props.user.neck && name === "hip" && this.props.user.height) {
+      this.bodyFatGender (this.props.user.waist, value, this.props.user.neck, this.props.user.height, this.props.user.gender)
+    } else
+    if (this.props.user.gender && this.props.user.waist && this.props.user.neck && this.props.user.hip && name === "height") {
+      this.bodyFatGender (this.props.user.waist, this.props.user.hip, this.props.user.neck, value, this.props.user.gender)
+    }
+
+    this.props.user.bodyFat = this.bodyFat
+
+    // -------------------------------------------------------------
+    // ----- bodyMusscle 
+    // -------------------------------------------------------------
+    
+    this.bodyMusscle = parseFloat(this.props.user.weight - (this.props.user.weight * (this.bodyFat / 100))).toFixed(2)
+
+    this.props.user.bodyMusscle = this.bodyMusscle;
+
+    // -------------------------------------------------------------
+    // ----- tmb 
+    // -------------------------------------------------------------
+
+    if (name === "gender" && this.props.user.weight && this.props.user.height && this.props.user.age) { 
+      this.tmbGender(value, this.props.user.weight, this.props.user.height, this.props.user.age)
+    } else
+    if (this.props.user.gender && name === "weight" && this.props.user.height && this.props.user.age) {
+      this.tmbGender(this.props.user.gender, value, this.props.user.height, this.props.user.age) 
+    } else
+    if (this.props.user.gender && this.props.user.weight && name === "height" && this.props.user.age) {
+      this.tmbGender(this.props.user.gender, this.props.user.weight, value, this.props.user.age)
+    } else
+    if (this.props.user.gender && this.props.user.weight && this.props.user.height && name === "age") {
+      this.tmbGender(this.props.user.gender, this.props.user.weight, this.props.user.height, value)
+    }
+
+    this.props.user.tmb = this.tmb
+
+
     console.log(name, value)
     this.setState({
         edit: {
@@ -29,6 +117,7 @@ export default class EditProfileForm extends Component {
             [name]: value
         }
     })
+    console.log(this.state.edit)
   }
 
 
@@ -40,15 +129,8 @@ export default class EditProfileForm extends Component {
     this.services.updateProfile(this.props.user._id, this.state.edit)
     //     .then(x => this.props.refreshCoasters())
 
-    // this.setState({
-    //   edit: {
-    //     username: "",   height: "",       weight: "",
-    //     age: "",        waist: "",        hip: "",      neck: "",           bodyFat: "",  bodyMusscle: "",
-    //     tmb: "",        trainingDays: "", indexWH: "",  activityLevel: "",  goal: "",     weightGoal: ""
-    //   }
-    // })
  
-}
+    }
 
 
 
@@ -64,42 +146,42 @@ export default class EditProfileForm extends Component {
             <form onSubmit={this.handleSubmit}>
             <div className="form-group col-12">
                 <label>Username</label>
-                <input type="text" name="username" placeholder={user.username} className="form-control" value={edit.username} onChange={e => this.handleChange(e)} />
+                <input type="text" name="username" className="form-control" value={edit.username} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Height</label>
-                <input type="number" name="height" placeholder={user.height} className="form-control" value={edit.height} onChange={e => this.handleChange(e)} />
+                <input type="number" name="height" className="form-control" value={edit.height} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Weight</label>
-                <input type="number" name="weight" placeholder={user.weight} className="form-control" value={edit.weight} onChange={e => this.handleChange(e)} />
+                <input type="number" name="weight" className="form-control" value={edit.weight} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Age</label>
-                <input type="number" name="age" placeholder={user.age} className="form-control" value={edit.age} onChange={e => this.handleChange(e)} />
+                <input type="number" name="age" className="form-control" value={edit.age} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Waist</label>
-                <input type="number" name="waist" placeholder={user.waist} className="form-control" value={edit.waist} onChange={e => this.handleChange(e)} />
+                <input type="number" name="waist" className="form-control" value={edit.waist} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Hip</label>
-                <input type="number" name="hip" placeholder={user.hip} className="form-control" value={edit.hip} onChange={e => this.handleChange(e)} />
+                <input type="number" name="hip"  className="form-control" value={edit.hip} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Neck</label>
-                <input type="number" name="neck" placeholder={user.neck} className="form-control" value={edit.neck} onChange={e => this.handleChange(e)} />
+                <input type="number" name="neck" className="form-control" value={edit.neck} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Body fat</label>
-                <input type="number" name="bodyFat" className="form-control" placeholder={user.bodyFat} value={this.bodyFat} onChange={e => this.handleChange(e)} disabled="disabled" />
+                <input type="number" name="bodyFat" className="form-control" value={this.bodyFat} onChange={e => this.handleChange(e)} disabled="disabled" />
             </div>
 
             <div className="form-group col-12">
@@ -147,7 +229,7 @@ export default class EditProfileForm extends Component {
             
             <input type="text" name="weightGoal" value={user.weightGoal} className="form-control" onChange={e => this.handleChange(e)}  />
 
-            <button type="submit" >Edit</button>
+            <button type="submit" >Send</button>
             </form>  
       </div>
     )
