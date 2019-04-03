@@ -82,17 +82,16 @@ class CarouselPage extends Component {
             <MDBView src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
               <MDBMask overlay="black-light" className="flex-center flex-column text-white">
                 <PageOne updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} error={this.state.error} />
-                {/* <img className="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide" /> */}
+                <Link to={"/"} className="btn btn-outline-light btn-account btn-rounded m-5"><i className="fas fa-home mr-2"></i> Home</Link>
               </MDBMask>
-            </MDBView>
-            
+            </MDBView> 
           </MDBCarouselItem>
           )}
           <MDBCarouselItem itemId="2" id="step-2">
             <MDBView src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
               <MDBMask overlay="black-light" className="flex-center flex-column text-white">
                 <PageTwo updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} />
-                {/* <img className="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(99).jpg" alt="Second slide" /> */}
+                <Link to={"/"} className="btn btn-outline-light btn-account btn-rounded m-5"><i className="fas fa-home mr-2"></i> Home</Link>
               </MDBMask>            
             </MDBView>
           </MDBCarouselItem>
@@ -100,7 +99,7 @@ class CarouselPage extends Component {
             <MDBView  src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
               <MDBMask overlay="black-light" className="flex-center flex-column text-white">
                 <PageThree updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} />
-                {/* <img className="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(17).jpg" alt="Third slide" /> */}
+                <Link to={"/"} className="btn btn-outline-light btn-account btn-rounded m-5"><i className="fas fa-home mr-2"></i> Home</Link>                
               </MDBMask>            
             </MDBView>
           </MDBCarouselItem>

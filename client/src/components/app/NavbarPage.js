@@ -44,6 +44,9 @@ class NavbarPage extends React.Component {
                   </MDBNavItem>
                 </MDBNavbarNav>
                 <MDBNavbarNav right>
+                <small>Already have an account? <Link to={"/login"} className="links"> Login </Link></small>
+                <Link to={"/signup"} className="btn btn-outline-light btn-account btn-rounded m-5"><i className="fas fa-home mr-2"></i> Signup</Link>
+
                   <MDBNavItem>
                     <MDBDropdown>
                       <MDBDropdownToggle className="dopdown-toggle" nav caret>
@@ -61,6 +64,7 @@ class NavbarPage extends React.Component {
             </MDBNavbar>
           </Router>
         </header>
+        
       </div>
     );
   }

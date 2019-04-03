@@ -3,7 +3,7 @@
   justify-content: center;
 }
 
-label {
+.filter-labels label {
     margin-left: -22px;
     background: #3b3b3b;
 }
