@@ -106,7 +106,7 @@ class Profile extends Component {
           </div> 
 
           <EditProfileForm user={loggedInUser} />
-          <Calendar user={loggedInUser} />
+          <Calendar user={loggedInUser} recipes={this.state.recipes}/>
 
 
         </header>

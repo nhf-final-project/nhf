@@ -17,9 +17,9 @@ class CarouselPage extends Component {
     super(props);
     this.state = {
       user: {
-        username: "",   email: "",        password: "", gender: "",         height: "",   weight: "",
-        age: "",        waist: "",        hip: "",      neck: "",           bodyFat: "",  bodyMusscle: "",
-        tmb: "",        trainingDays: "", indexWH: "",  activityLevel: "",  goal: "",     weightGoal: ""
+        username: "",   email: "",        password: "", gender: "",        height: "",   weight: "",
+        age: "",        waist: "",        hip: "",      neck: "",          bodyFat: "",  bodyMusscle: "",
+        tmb: "",        trainingDays: "", indexWH: "",  activityLevel: "", goal: "",     weightGoal: ""
       },
       logged: false,
       error: '',
@@ -53,7 +53,7 @@ class CarouselPage extends Component {
       })
       .catch(error => {
         console.log(error)
-        console.log(error.response.data.message)
+ 
       });
   };
 
