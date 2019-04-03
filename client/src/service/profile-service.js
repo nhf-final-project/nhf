@@ -13,7 +13,6 @@ export default class ProfileService {
     getSavedRecipes = () => {
         return this.service.post(`profile`)
             .then(res => {
-                console.log(res);
                 return res.data;
             })
 

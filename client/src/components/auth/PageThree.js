@@ -23,7 +23,7 @@ class PageThree extends Component {
     return (
         <MDBContainer className="wrapper p-2">
             <h2 className="text-center">Create Account</h2>
-            <h3 class="font-weight-bold pl-0 my-4 text-center"><strong>Personal Goals</strong></h3>
+            <h3 className="font-weight-bold pl-0 my-4 text-center"><strong>Personal Goals</strong></h3>
             <MDBRow className="wrapper-inside">
                 <MDBCol md="8">   
                     <Stepper />  

@@ -39,8 +39,12 @@ const userSchema = new Schema({
       required: true
     },
     weightGoal: {type: Number, required: true},
+    image: {
+      type: String,
+      default: "https://upload.wikimedia.org/wikipedia/commons/9/9b/Leonardo%27s_Avatar.png"
+    },
     recipes: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
-    // foods: [{ type: Schema.Types.ObjectId, ref: 'Food' }]
+    calendar: [{ type: Schema.Types.ObjectId, ref: 'Calendar' }],
 },
     {
         timestamps: true
