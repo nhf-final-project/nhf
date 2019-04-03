@@ -17,14 +17,14 @@ passport.deserializeUser((userIdFromSession, cb) => {
     });
 });
 
-passport.use(new LocalStrategy({
-    usernameField: "username",
-    passwordField: "password"
-},(username, password, next) => {
-    User.findOne({ username })
-    .populate("calendar")
-    .then(foundUser => {
-       
+
+passport.use(new LocalStrategy((username, password, next) => {
+    User.findOne({ username }, (err, foundUser) => {
+        if (err) {
+            next(err);
+            return;
+        }
+
         if (!foundUser) {
             next(null, false, { message: 'Incorrect username.' });
             return;
@@ -36,6 +36,35 @@ passport.use(new LocalStrategy({
         }
 
         next(null, foundUser);
-    })
-    .catch(err=> next(err))
+    });
 }));
+
+
+
+
+
+
+
+
+// passport.use(new LocalStrategy({
+//     usernameField: "username",
+//     passwordField: "password"
+// },(username, password, next) => {
+//     User.findOne({ username })
+//     .populate("calendar")
+//     .then(foundUser => {
+       
+//         if (!foundUser) {
+//             next(null, false, { message: 'Incorrect username.' });
+//             return;
+//         }
+
+//         if (!bcrypt.compareSync(password, foundUser.password)) {
+//             next(null, false, { message: 'Incorrect password.' });
+//             return;
+//         }
+
+//         next(null, foundUser);
+//     })
+//     .catch(err=> next(err))
+// }));

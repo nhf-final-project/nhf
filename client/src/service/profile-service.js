@@ -19,7 +19,7 @@ export default class ProfileService {
     }
 
     updateProfile = (id, edit) => {
-        return this.service.post(`profile/edit`, {edit, id})
+        return this.service.post(`profile/edit`, {id, edit})
             .then(res => {
                 console.log(res);
                 return res.data;
@@ -27,9 +27,10 @@ export default class ProfileService {
 
     }
 
-    getCalendar = (userId, calendarId) => {
 
-        return this.service.post(`profile/calendar`, {userId, calendarId})
+    addToCalendar = (userId, recipe, meals, days)=> {
+        console.log(userId, recipe)
+        return this.service.post("profile/addRecipe", {userId, recipe, meals, days} )
             .then(res => {
                 console.log(res);
                 return res.data;

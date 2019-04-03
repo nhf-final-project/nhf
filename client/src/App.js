@@ -7,7 +7,7 @@ import NavbarPage from "./components/app/Navbar-Footer/NavbarPage"
 import Signup2 from "./components/auth/Signup2"
 import Home from "./components/app/Home/Home"
 import Login from "./components/auth/Login"
-import Profile from "./components/app/Profile2"
+import Profile from "./components/app/Profile"
 import ProtectedRoutes from "./components/auth/ProtectedRoutes"
 import AllRecipes from './components/app/Recipes/AllRecipes';
 import RecipeDetails from './components/app/Recipes/RecipeDetails';

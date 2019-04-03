@@ -27,17 +27,6 @@ recipesRoutes.post("/recipes/:id", (req, res) => {
     )
 })
 
-recipesRoutes.post("/recipes/:id", (req, res) => {
-  
-    const recipeId = req.params.id
-
-
-    User.findByIdAndUpdate( req.user._id, { $addToSet: {recipes: recipeId}})
-        .then(data => res.json(data))
-        .catch(err => {console.log('Error while updating a recipe collection', err)}
-    )
-})
-
 
 
 module.exports = recipesRoutes;

@@ -5,7 +5,7 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 
 const User = require('../models/User');
-const Calendar = require("../models/Calendar")
+// const Calendar = require("../models/Calendar")
 
 authRoutes.post('/signup', (req, res, next) => {
     console.log(req.body)
@@ -22,29 +22,29 @@ authRoutes.post('/signup', (req, res, next) => {
         if (err) { res.status(500).json({ message: "email check went bad." }); return; }
         if (foundUser) { res.status(400).json({ message: 'email taken. Choose another one.' }); return; }
 
-        Calendar.create({
+        // Calendar.create({
             
-                breakfast: {
-                    Monday: [],Tuesday: [],Wednesday: [],Thursday: [],Friday: [],Saturday: [],Sunday: []
-                },
-                lunch: {
-                    Monday: [],Tuesday: [],Wednesday: [],Thursday: [],Friday: [],Saturday: [],Sunday: []
-                },
-                snack: {
-                    Monday: [],Tuesday: [],Wednesday: [],Thursday: [],Friday: [],Saturday: [],Sunday: []
-                },
-                dinner: {
-                    Monday: [],Tuesday: [],Wednesday: [],Thursday: [],Friday: [],Saturday: [],Sunday: []
-                }
+        //         breakfast: {
+        //             Monday: [],Tuesday: [],Wednesday: [],Thursday: [],Friday: [],Saturday: [],Sunday: []
+        //         },
+        //         lunch: {
+        //             Monday: [],Tuesday: [],Wednesday: [],Thursday: [],Friday: [],Saturday: [],Sunday: []
+        //         },
+        //         snack: {
+        //             Monday: [],Tuesday: [],Wednesday: [],Thursday: [],Friday: [],Saturday: [],Sunday: []
+        //         },
+        //         dinner: {
+        //             Monday: [],Tuesday: [],Wednesday: [],Thursday: [],Friday: [],Saturday: [],Sunday: []
+        //         }
                 
 
-        }).then(calendar => {
+        // }).then(calendar => {
 
             const salt = bcrypt.genSaltSync(10);
             const hashPass = bcrypt.hashSync(password, salt);
             const aNewUser = new User({
                 username, email, password: hashPass, gender, height, weight, age, waist, hip, neck,
-                bodyFat, bodyMusscle, tmb, trainingDays, indexWH, activityLevel, goal, weightGoal, calendar: calendar._id
+                bodyFat, bodyMusscle, tmb, trainingDays, indexWH, activityLevel, goal, weightGoal //calendar: calendar._id
             });
     
             aNewUser.save(err => {
@@ -58,7 +58,7 @@ authRoutes.post('/signup', (req, res, next) => {
             });
 
 
-        })
+        // })
 
     });
 });

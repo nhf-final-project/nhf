@@ -3,129 +3,16 @@ const Schema = mongoose.Schema;
 
 const calendarSchema = new Schema({
 
-    
-        breakfast: {
-            Monday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-    
-            },
-            Tuesday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-        
-            },
-            Wednesday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-          
-            },
-            Thursday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-         
-            },
-            Friday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-         
-            },
-            Saturday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-        
-            },
-            Sunday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-          
-            }
-        },
-        lunch: {
-            Monday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-           
-            },
-            Tuesday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Wednesday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Thursday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-   
-            },
-            Friday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-          
-            },
-            Saturday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-  
-            },
-            Sunday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            }
-        },
-        snack: {
-            Monday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Tuesday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-  
-            },
-            Wednesday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Thursday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Friday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Saturday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Sunday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            }
-        },
-        dinner: {
-            Monday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Tuesday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Wednesday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Thursday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Friday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Saturday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            },
-            Sunday: {
-                type: [{type:Schema.Types.ObjectId, ref:'Recipe'}],
-
-            }
-        } 
-
-    
+  meal: {
+    type: String,
+    enum: ["breakfast", "lunch", "snack", "dinner"]
+  },
+  day: {
+    type: String,
+    enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+  },
+  recipe: { type: Schema.Types.ObjectId, ref: 'Recipe' },
+  user: { type: Schema.Types.ObjectId, ref: 'User' }
 
 },
     {

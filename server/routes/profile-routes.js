@@ -35,12 +35,13 @@ profileRoutes.post('/profile/edit', (req, res, next) => {
 })
 
 
-profileRoutes.post('/profile/calendar', (req, res, next) => {
+profileRoutes.post('/profile/addRecipe', (req, res, next) => {
     
-    console.log(req.body)
+    // console.log(req.body)
     console.log(req.user)
 
     // const {username, height, weight, age, waist, hip, neck, bodyFat, bodyMusscle, tmb, trainingDays, indexWH, activityLevel, goal, weightGoal } = req.body
+    // Calendar.findByIdAndUpdate(req.user.calendar, { $set: {breakfast: }},{new:true})
 
     // User.findByIdAndUpdate(req.user._id, {calendar: req.body.calendar}, {new:true})
     //   .populate({
@@ -49,6 +50,7 @@ profileRoutes.post('/profile/calendar', (req, res, next) => {
     //   }).exec(function(err,data){ 
     //     if(!err){
     //        console.log('data all',data)
+    //        return data
     //      }
     //      else{
     //        console.log('err err err',err)
@@ -64,3 +66,4 @@ profileRoutes.post('/profile/calendar', (req, res, next) => {
 
 
 module.exports = profileRoutes;
+

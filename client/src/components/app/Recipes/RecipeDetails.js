@@ -33,14 +33,16 @@ class RecipeDetails extends Component {
   getRecipe = () => {
     this.service.getOneRecipe(this.props.match.params.id)
       .then(response=>  {
+        console.log(response)
         this.setState({recipe: response})        
       });
   }
 
   saveTheRecipe = () => {
+    console.log(this.props.match.params.id)
     this.service.saveRecipe(this.props.match.params.id)
       .then(response  =>  {
-        console.log('entro')
+        console.log(response)
         this.setState({addToMessage: "Succesfully added!"})
         return response});
   }
