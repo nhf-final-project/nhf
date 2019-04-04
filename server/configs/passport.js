@@ -40,12 +40,6 @@ passport.use(new LocalStrategy((username, password, next) => {
 }));
 
 
-
-
-
-
-
-
 // passport.use(new LocalStrategy({
 //     usernameField: "username",
 //     passwordField: "password"

@@ -17,12 +17,12 @@ class Login extends Component {
         const password = this.state.password;
         this.service.login(username, password)
              .then(response => {
-                console.log(response)
+             
                  this.setState({ email: "", password: "", logged: true }, ()=> this.props.setUser(response));
              })
              .catch(error => {
                 console.log(error)
-                this.setState({ error: error.response.data.message});
+                // this.setState({ error: error.response.data.message});
             })
     }
 
