@@ -5,10 +5,16 @@
 .btn-filled {
   background-color: white !important;
   color: grey !important;
-  width: 20rem !important;
+  width: 18rem !important;
   margin: 2rem auto !important;
+  opacity: 0.9;
 }
 
 .title-section {
-  font-size: 8rem;
+  font-size: 4rem;
+}
+
+.top-class {
+  position: relative;
+  top: -100px;
 }
