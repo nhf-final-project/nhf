@@ -53,13 +53,11 @@ profileRoutes.post('/profile/addRecipe', (req, res, next) => {
 
     let { user, recipe, calendar } = req.body
 
-    // console.log(user, recipe, calendar)
-
     Calendar.create({ meal: calendar.meal, day: calendar.day, recipe, user })
         .then(calendar => {
 
-            User.findByIdAndUpdate(user, { $addToSet: { calendars: calendar._id } })
-                // .populate('Calendar')
+            User.findByIdAndUpdate(user, { $addToSet: { calendars: calendar._id } }, {new:true})
+
                 .populate({
                     path: 'calendars',
                     populate: { path: 'recipe' }
@@ -70,7 +68,6 @@ profileRoutes.post('/profile/addRecipe', (req, res, next) => {
                     console.log('Error while finding updating calendar', err)
                 })
 
-
         })
 
         .catch(err => {
@@ -78,41 +75,6 @@ profileRoutes.post('/profile/addRecipe', (req, res, next) => {
             next()
         })
 })
-
-
-//     const{prediction, price, startDate, endDate } = req.body
-
-// const user = req.params.id
-
-// const newPrediction = new Prediction ({cryptocurrency, user, prediction, price, startDate, endDate})
-
-// newPrediction.save()
-
-
-
-// console.log(req.user)
-
-// const {username, height, weight, age, waist, hip, neck, bodyFat, bodyMusscle, tmb, trainingDays, indexWH, activityLevel, goal, weightGoal } = req.body
-// Calendar.findByIdAndUpdate(req.user.calendar, { $set: {breakfast: }},{new:true})
-
-// User.findByIdAndUpdate(req.user._id, {calendar: req.body.calendar}, {new:true})
-//   .populate({
-//       path: 'calendar_id', model: 'Calendar',
-//          populate: {path: 'recipes_id', model: 'Recipe'}
-//   }).exec(function(err,data){ 
-//     if(!err){
-//        console.log('data all',data)
-//        return data
-//      }
-//      else{
-//        console.log('err err err',err)
-//       }
-//     })
-//   .then(user => res.json({user}))
-//   .catch(err => {
-//       console.log('Error while finding one markerCoins', err)
-//       next()
-// })
 
 
 

@@ -45,8 +45,8 @@ class Profile extends Component {
     this.state = { 
       recipes: [],
       value: 0,
-
-      // backgroundImage: backgroundImage
+      loggedInUser: null,
+      calendarRecipes: []
     }
     this.service = new ProfileService();
 
@@ -65,6 +65,7 @@ class Profile extends Component {
     }
   }
 
+ 
 
   getSavedRecipes = () => {
     return this.service.getSavedRecipes()
@@ -79,13 +80,14 @@ class Profile extends Component {
 
   componentDidMount() {
     this.getSavedRecipes()
+    
   }
 
 
   render() {
     const { classes } = this.props;
     const { loggedInUser, value } = this.props
-    console.log(loggedInUser)
+    console.log(this.props)
     return (
       <main>
 
@@ -105,7 +107,7 @@ class Profile extends Component {
               <h3>Following</h3>         
           </div> 
 
-          <EditProfileForm user={loggedInUser} />
+          <EditProfileForm user={loggedInUser} checkIfLogged={this.props.checkIfLogged}/>
           <Calendar user={loggedInUser} recipes={this.state.recipes}/>
 
 
