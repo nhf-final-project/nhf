@@ -1,4 +1,5 @@
 import axios from "axios";
+const _ = require('lodash');
 
 export default class ProfileService {
 
@@ -19,20 +20,33 @@ export default class ProfileService {
     }
 
     updateProfile = (id, edit) => {
-        return this.service.post(`profile/edit`, {edit, id})
+        return this.service.post(`profile/edit`, {id, edit})
             .then(res => {
                 console.log(res);
                 return res.data;
             })
 
     }
+    
 
-    getCalendar = (userId, calendarId) => {
-
-        return this.service.post(`profile/calendar`, {userId, calendarId})
+    addToCalendar = (user, recipe, calendar)=> {
+        console.log(user, recipe, calendar)
+        return this.service.post("profile/addRecipe", {user, recipe, calendar} )
             .then(res => {
-                console.log(res);
-                return res.data;
+                console.log(res.data)
+                let result = _.groupBy(res.data.user.calendars, "day")
+                return result;
+            })
+
+    }
+
+    getCalendarPrograms = ()=> {
+ 
+        return this.service.post("profile/getCalendarPrograms")
+            .then(res => {
+                console.log(res.data)
+                let result = _.groupBy(res.data.user.calendars, "day")
+                return result;
             })
 
     }

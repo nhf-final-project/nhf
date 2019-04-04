@@ -5,6 +5,8 @@ import ProfileService from "../../service/profile-service";
 import { Link } from 'react-router-dom';
 
 
+const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
 const customStyles = {
   content: {
     top: '50%',
@@ -28,9 +30,12 @@ export default class Calendar extends Component {
 
     this.state = {
       modalIsOpen: false,
-      meal: '',
-      day: '',
-      calendarRecipes: []   
+      calendar: {
+        meal: '',
+        day: ''
+      },
+      calendarPrograms: undefined
+      // addedRecipe:  ''   
     }
 
     this.openModal = this.openModal.bind(this)
@@ -41,9 +46,9 @@ export default class Calendar extends Component {
 
 
   componentDidMount() {
-    this.getCalendar() 
+    this.getCalendar()
   }
-  
+
 
 
   // getCalendar = () => {
@@ -55,8 +60,9 @@ export default class Calendar extends Component {
   //     })
   // }
 
-  componentDidMount= () => { 
-    
+  componentDidMount = () => {
+    this.service.getCalendarPrograms()
+      .then(response => this.setState({ ...this.state, calendarPrograms: response }))
   }
 
   openModal = () => {
@@ -70,16 +76,81 @@ export default class Calendar extends Component {
   handleChange = (e) => {
     this.openModal()
 
-    const {name, value} = e.target
-    this.setState({
+    const { value } = e.target
 
+    this.setState({
+      calendar: {
+        ...this.state.calendar,
+        meal: value
+      }
+    })
+  }
+
+  handleState = (e) => {
+    const { value } = e.target
+
+
+    this.setState({
+      calendar: {
+        ...this.state.calendar,
+        day: value
+      }
     })
   }
 
 
+
+  // getSelectedRecipe = (recipe) => {
+
+  //    this.service.addToCalendar(this.props.user._id, recipe)
+
+  // }
+
+  handleSubmit = (e, recipe) => {
+    e.preventDefault()
+
+
+    this.service.addToCalendar(this.props.user._id, recipe, this.state.calendar)
+      .then(response => this.setState({ ...this.state, calendarPrograms: response }))
+
+
+
+
+    // this.services.addToCalendar(this.state.coaster)
+    //     .then(x => this.props.refreshCoasters())
+
+    this.setState({
+      calendar: {
+        ...this.state.calendar,
+        meal: '',
+        day: ''
+      }
+    })
+    this.closeModal()
+  }
+
+  renderMealDay = (day, meal) => {
+
+    if (this.state.calendarPrograms[day] !== undefined) {
+      let recipesDay = Object.values(this.state.calendarPrograms[day]).filter((program) => program.meal === meal)
+
+      return (
+        <div>
+          {recipesDay.map(recipe => <p>{recipe.recipe.label}</p>)}
+        </div>
+      )
+    } else {
+      return <div></div>
+    }
+
+
+  }
+
+
   render() {
-    const {user, recipes} = this.props
-    console.log(user, recipes)
+    const { user, recipes } = this.props
+  
+    console.log(this.state.calendarPrograms)
 
     return (
       <div>
@@ -99,66 +170,70 @@ export default class Calendar extends Component {
           <tbody>
             <tr>
               <th scope="row">Breakfast</th>
-              {Object.keys(user.calendar.breakfast).map(day => (
-                <td>{Object.values(user.calendar.breakfast[day]).map(recetas => (<div>hola</div>))}</td>
-              ) )}
+
+              {
+                this.state.calendarPrograms !== undefined && days.map((day) => 
+                  <td>{this.renderMealDay(day, "breakfast")}</td>
+                )
+              }
             </tr>
             <tr>
-              <th scope="row">Lunch</th>
+              {/* <th scope="row">Lunch</th>
               {Object.keys(user.calendar.lunch).map(day => (
                 <td>{Object.values(user.calendar.lunch[day]).map(recetas => (<div>hola</div>))}</td>
-              ) )}
+              ) )} */}
             </tr>
             <tr>
               <th scope="row">Snack</th>
-              {Object.keys(user.calendar.snack).map(day => (
+              {/* {Object.keys(user.calendar.snack).map(day => (
                 <td>{Object.values(user.calendar.snack[day]).map(recetas => (<div>hola</div>))}</td>
-              ) )}
+              ) )} */}
             </tr>
             <tr>
               <th scope="row">Dinner</th>
-              {Object.keys(user.calendar.dinner).map(day => (
+              {/* {Object.keys(user.calendar.dinner).map(day => (
                 <td>{Object.values(user.calendar.dinner[day]).map(recetas => (<div>hola</div>))}</td>
-              ) )}
+              ) )} */}
             </tr>
           </tbody>
         </table>
         <div className="form-group col-6">
           <label>Plan your meal</label>
-          <select type="text" name="meal" className="form-control" onChange={this.handleChange}>
+          <select type="text" name="meal" value={this.state.meals} className="form-control" onChange={(e) => this.handleChange(e)}>
             <option></option>
-            <option value={this.state.meal}>Breakfast</option>
-            <option value={this.state.meal}>Lunch</option>
-            <option value={this.state.meal}>Snack</option>
-            <option value={this.state.meal}>Dinner</option>
+            <option>breakfast</option>
+            <option>lunch</option>
+            <option>snack</option>
+            <option>dinner</option>
           </select>
         </div>
 
 
         <Modal isOpen={this.state.modalIsOpen} onRequestClose={this.closeModal} style={customStyles}>
-        
-          <div>
-              <div className="form-group col-6">
-                  <form onSubmit={this.handleSubmit}>
-                    <label>Choose day</label>
-                    <select type="text" name="blabla" className="form-control" onChange={this.openModal}>
-                      <option></option>
-                      <option>Monday</option>
-                      <option>Tuesday</option>
-                      <option>Wednesday</option>
-                      <option>Thursday</option>
-                      <option>Friday</option>
-                      <option>Saturday</option>
-                      <option>Sunday</option>
-                    </select>
-                  </form>
-              </div>
-              {(recipes.length === 0) && <small>Don't have a collection of recipes? <Link to={"/recipes"} className="links"> Go to recipes </Link></small>}
 
-              {(recipes.length !== 0) && recipes.map((recipe, idx) => {
-              return <article className="user-recipe" key={idx}><img src={recipe.image} alt={recipe.label}/><button onClick={() => this.closeModal()} type="submit" className="btn btn-primary">Add</button></article> 
-                })}        
-          </div> 
+          <div>
+            <div className="form-group col-6">
+              <form >
+                <label>Choose day</label>
+                <select type="text" name="day" value={this.state.days} className="form-control" onChange={(e) => this.handleState(e)}>
+                  <option></option>
+                  <option>Monday</option>
+                  <option>Tuesday</option>
+                  <option>Wednesday</option>
+                  <option>Thursday</option>
+                  <option>Friday</option>
+                  <option>Saturday</option>
+                  <option>Sunday</option>
+                </select>
+              </form>
+            </div>
+            {(recipes.length === 0) && <small>Don't have a collection of recipes? <Link to={"/recipes"} className="links"> Go to recipes </Link></small>}
+
+            {(recipes.length !== 0) && recipes.map((recipe, idx) => {
+              const calorieDecimals = parseFloat(recipe.calories).toFixed(2)
+              return <article className="user-recipe" key={idx}><img src={recipe.image} alt={recipe.label} /><h4>{recipe.label}</h4><p>Calories:{calorieDecimals}</p><p>Quantity:{recipe.totalWeight} g</p><button type="submit" className="btn btn-primary" onClick={(e) => this.handleSubmit(e, recipe._id)}>Add Recipe</button></article>
+            })}
+          </div>
 
         </Modal>
 
