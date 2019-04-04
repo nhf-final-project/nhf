@@ -27,20 +27,18 @@ class App extends Component {
     this.service = new authService()
   }
 
-  fetchUser() {
-    if (this.state.loggedInUser === null) {
+
+  fetchUser = () => {
+
       this.service.loggedin()
-        .then(response => this.setState({ loggedInUser: response }))
+        .then(response => {
+          console.log(response)
+          this.setState({ loggedInUser: response })})
         .catch(x => this.setState({ loggedInUser: false }))
-    }
+    
   }
 
   setTheUser = (userObj) => { this.setState({ loggedInUser: userObj }) }
-
-  logoutUser = () => {
-    this.service.logout()
-        .then(() => { this.setState({ loggedInUser: false }) })
-}
 
   render() {
 
@@ -55,7 +53,7 @@ class App extends Component {
             <Route exact path='/' component={Home} />
             <Route exact path='/recipes' component={AllRecipes} userInSession={this.loggedInUser} setUser={this.setTheUser} />
             <Route exact path='/recipes/:id' component={RecipeDetails} userInSession={this.loggedInUser} setUser={this.setTheUser} />
-            <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
+            <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} checkIfLogged={this.fetchUser}/>
           </Switch>
           <Footer />
         </div>

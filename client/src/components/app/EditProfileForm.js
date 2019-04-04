@@ -12,8 +12,8 @@ export default class EditProfileForm extends Component {
         username: props.user.username,   height: props.user.height,       weight: props.user.weight,
         age: props.user.age,        waist: props.user.waist,        hip: props.user.hip,      neck: props.user.neck,           bodyFat: props.user.bodyFat,  bodyMusscle: props.user.bodyMusscle,
         tmb: props.user.tmb,        trainingDays: props.user.trainingDays, indexWH: props.user.indexWH,  activityLevel: props.user.activityLevel,  goal: props.user.goal,     weightGoal: props.user.weightGoal
-      }
-      
+      },
+      loggedInUser: null 
     }
     this.indexWH =  this.props.user.indexWH;
     this.bodyFat = this.props.user.bodyFat;
@@ -127,6 +127,7 @@ export default class EditProfileForm extends Component {
     e.preventDefault()
 
     this.services.updateProfile(this.props.user._id, this.state.edit)
+    .then(user => this.props.checkIfLogged() )
     //     .then(x => this.props.refreshCoasters())
     
  

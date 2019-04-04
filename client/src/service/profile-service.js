@@ -22,7 +22,7 @@ export default class ProfileService {
     updateProfile = (id, edit) => {
         return this.service.post(`profile/edit`, {id, edit})
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 return res.data;
             })
 
@@ -33,7 +33,7 @@ export default class ProfileService {
         console.log(user, recipe, calendar)
         return this.service.post("profile/addRecipe", {user, recipe, calendar} )
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 let result = _.groupBy(res.data.user.calendars, "day")
                 return result;
             })
@@ -44,14 +44,12 @@ export default class ProfileService {
  
         return this.service.post("profile/getCalendarPrograms")
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 let result = _.groupBy(res.data.user.calendars, "day")
                 return result;
             })
 
     }
-
-
 
  
 }

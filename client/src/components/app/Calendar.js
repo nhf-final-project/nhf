@@ -34,8 +34,7 @@ export default class Calendar extends Component {
         meal: '',
         day: ''
       },
-      calendarPrograms: undefined
-      // addedRecipe:  ''   
+      calendarPrograms: undefined   
     }
 
     this.openModal = this.openModal.bind(this)
@@ -44,21 +43,6 @@ export default class Calendar extends Component {
 
   }
 
-
-  componentDidMount() {
-    this.getCalendar()
-  }
-
-
-
-  // getCalendar = () => {
-
-  //   return this.service.getCalendar(this.props.user._id, this.props.user.calendar._id)
-  //     .then(calendar => {
-  //       console.log(calendar)
-  //       this.setState({...this.state, calendar: calendar})
-  //     })
-  // }
 
   componentDidMount = () => {
     this.service.getCalendarPrograms()
@@ -99,31 +83,23 @@ export default class Calendar extends Component {
   }
 
 
-
-  // getSelectedRecipe = (recipe) => {
-
-  //    this.service.addToCalendar(this.props.user._id, recipe)
-
-  // }
-
   handleSubmit = (e, recipe) => {
     e.preventDefault()
 
 
     this.service.addToCalendar(this.props.user._id, recipe, this.state.calendar)
-      .then(response => this.setState({ ...this.state, calendarPrograms: response }))
-
-    // this.services.addToCalendar(this.state.coaster)
-    //     .then(x => this.props.refreshCoasters())
-
-    this.setState({
-      calendar: {
-        ...this.state.calendar,
-        meal: '',
-        day: ''
-      }
-    })
-    this.closeModal()
+      .then(response => {
+        this.setState({
+          ...this.state, calendarPrograms: response ,
+          calendar: {
+            ...this.state.calendar,
+            meal: '',
+            day: ''
+          }
+        }, () => 
+        this.closeModal()
+        )
+      })
   }
 
   renderMealDay = (day, meal) => {
@@ -146,8 +122,6 @@ export default class Calendar extends Component {
 
   render() {
     const { user, recipes } = this.props
-  
-    console.log(this.state.calendarPrograms)
 
     return (
       <div>
