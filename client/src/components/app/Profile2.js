@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ProfileImage from '../../images/avatar.png'
 import ProfileService from "../../service/profile-service";
 import EditProfileForm from './EditProfileForm2';
-import Calendar from './Calendar';
+import Calendar from './Calendar2';
 import './Profile.css'
 import RecipeUserCollection from './RecipeUserCollection'
 
@@ -53,6 +53,7 @@ class Profile extends Component {
   render() {
     const { classes } = this.props;
     const { loggedInUser } = this.props
+    console.log(loggedInUser)
 
     return (
       
@@ -81,7 +82,7 @@ class Profile extends Component {
               {this.state.recipes.map((oneRecipe, index) => <RecipeUserCollection key={index} {...oneRecipe} />)}
             </section>
           </TabContainer>}
-          {this.state.value === "1" && <TabContainer><Calendar user={loggedInUser} /></TabContainer>}
+          {this.state.value === "1" && <TabContainer><Calendar user={loggedInUser} recipes={this.state.recipes} /></TabContainer>}
           {this.state.value === "2" && <TabContainer><EditProfileForm user={loggedInUser}/></TabContainer>}
         </div>
       </main>

@@ -115,10 +115,10 @@ export default class AllRecipes extends Component {
   render() {
     return (
       <div ref={this.myRef} className="recipe-details-main">
-          <SearchByHealthLabel recipes={this.state.recipes} copia={this.state.copia} searchValue={this.state.searchValue} searchRecipe={this.searchRecipe} filterRecipe={this.filterRecipe} />
           <MDBContainer>
             <MDBInput label="Search" size="lg" outline icon="search" type="text" name="name" value={this.state.name}  onChange={(e) => {this.filterRecipe(e)}} />
           </MDBContainer>
+          <SearchByHealthLabel recipes={this.state.recipes} copia={this.state.copia} searchValue={this.state.searchValue} searchRecipe={this.searchRecipe} filterRecipe={this.filterRecipe} />
           <div className="row p-5">
             {Array.isArray(this.state.copia) ? this.state.copia.map((oneRecipe, index) => <RecipeCard key={index} {...oneRecipe} userInSession={this.state.loggedInUser} setUser={this.props.setTheUser}/>) : null}
           </div>

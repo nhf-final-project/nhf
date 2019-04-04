@@ -1,9 +1,9 @@
 import React from "react";
-import Stepper from "./Stepper"
-import PageOne from "./PageOne"
-import PageTwo from "./PageTwo";
-import PageThree from "./PageThree";
-import PageFour from "./PageFour";
+import Stepper from "../Stepper"
+import PageOne from "../PageOne"
+import PageTwo from "../PageTwo";
+import PageThree from "../PageThree";
+import PageFour from "../PageFour";
 
 class StepperExample extends React.Component {
 

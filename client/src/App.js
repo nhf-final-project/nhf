@@ -5,10 +5,10 @@ import './App.css';
 
 import NavbarPage from "./components/app/Navbar-Footer/NavbarPage"
 import Footer from "./components/app/Navbar-Footer/Footer"
-import Signup2 from "./components/auth/Signup2"
+import Signup from "./components/auth/Signup"
 import Home from "./components/app/Home/Home"
 import Login from "./components/auth/Login"
-import Profile from "./components/app/Profile"
+import Profile from "./components/app/Profile2"
 import ProtectedRoutes from "./components/auth/ProtectedRoutes"
 import AllRecipes from './components/app/Recipes/AllRecipes';
 import RecipeDetails from './components/app/Recipes/RecipeDetails';
@@ -69,7 +69,7 @@ class App extends Component {
             <Route exact path='/' component={Home} />
             <Route exact path='/recipes' component={AllRecipes} userInSession={this.loggedInUser} setUser={this.setTheUser} />
             <Route exact path='/recipes/:id' component={RecipeDetails} userInSession={this.loggedInUser} setUser={this.setTheUser}/>
-            <Route exact path='/signup' render={() => <Signup2 setUser={this.setTheUser} userInSession={this.state.loggedInUser}/>} />
+            <Route exact path='/signup' render={() => <Signup setUser={this.setTheUser} userInSession={this.state.loggedInUser}/>} />
             <Route exact path='/login' render={() => <Login setUser={this.setTheUser} userInSession={this.state.loggedInUser} />} />   
             <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
             <Route exact path='/search' component={AllRecipes} />

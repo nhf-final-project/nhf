@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AuthService from "../../service/auth-service";
-import './Signup2.css'
+import './Signup.css'
 import { Redirect } from 'react-router-dom';
 
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask } from 'mdbreact';

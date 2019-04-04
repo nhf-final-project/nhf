@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import RecipesService from "../../../service/recipes-service";
 import { MDBRow, MDBCol, MDBModal, MDBModalHeader, MDBModalBody, MDBModalFooter, MDBContainer } from 'mdbreact';
 import "./RecipeDetails.css"
-import NavbarPage from "../Navbar-Footer/NavbarPage"
 import { Link } from 'react-router-dom'
 import {  MDBIcon } from 'mdbreact';
 
