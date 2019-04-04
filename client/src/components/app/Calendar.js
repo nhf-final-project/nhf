@@ -113,9 +113,6 @@ export default class Calendar extends Component {
     this.service.addToCalendar(this.props.user._id, recipe, this.state.calendar)
       .then(response => this.setState({ ...this.state, calendarPrograms: response }))
 
-
-
-
     // this.services.addToCalendar(this.state.coaster)
     //     .then(x => this.props.refreshCoasters())
 
@@ -136,7 +133,7 @@ export default class Calendar extends Component {
 
       return (
         <div>
-          {recipesDay.map(recipe => <p>{recipe.recipe.label}</p>)}
+          {recipesDay.map(recipe => <article><img src={recipe.recipe.image}/><p>{recipe.recipe.label}</p></article>)}
         </div>
       )
     } else {
@@ -178,22 +175,28 @@ export default class Calendar extends Component {
               }
             </tr>
             <tr>
-              {/* <th scope="row">Lunch</th>
-              {Object.keys(user.calendar.lunch).map(day => (
-                <td>{Object.values(user.calendar.lunch[day]).map(recetas => (<div>hola</div>))}</td>
-              ) )} */}
+              <th scope="row">Lunch</th>
+              {
+                this.state.calendarPrograms !== undefined && days.map((day) => 
+                  <td>{this.renderMealDay(day, "lunch")}</td>
+                )
+              }
             </tr>
             <tr>
               <th scope="row">Snack</th>
-              {/* {Object.keys(user.calendar.snack).map(day => (
-                <td>{Object.values(user.calendar.snack[day]).map(recetas => (<div>hola</div>))}</td>
-              ) )} */}
+              {
+                this.state.calendarPrograms !== undefined && days.map((day) => 
+                  <td>{this.renderMealDay(day, "snack")}</td>
+                )
+              }
             </tr>
             <tr>
               <th scope="row">Dinner</th>
-              {/* {Object.keys(user.calendar.dinner).map(day => (
-                <td>{Object.values(user.calendar.dinner[day]).map(recetas => (<div>hola</div>))}</td>
-              ) )} */}
+              {
+                this.state.calendarPrograms !== undefined && days.map((day) => 
+                  <td>{this.renderMealDay(day, "dinner")}</td>
+                )
+              }
             </tr>
           </tbody>
         </table>
