@@ -10,6 +10,7 @@
 .recipe-image {
   margin-bottom: 20px;
   mix-blend-mode: screen;
+  border: 2px solid white;
 }
 
  /* Buttons */
@@ -33,12 +34,13 @@
  /* User Messages */
 
 .add-to-message {
-  background-color: #CC0000;
-  width: 16rem;
+  background-color: #1b5e20;
+  width: 11.5rem;
   opacity: 0.6;
   color: white;
   font-weight: bold;
   border-radius: 20px;
+  border: .5px solid white;
 }
 
 .recipe-details-main {

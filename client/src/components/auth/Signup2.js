@@ -3,13 +3,13 @@ import AuthService from "../../service/auth-service";
 import './Signup2.css'
 import { Redirect } from 'react-router-dom';
 
-
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask } from 'mdbreact';
-
 
 import PageOne from './PageOne';
 import PageTwo from './PageTwo';
 import PageThree from './PageThree';
+
+// import backgroundImage from '../../images/background-recipe-01-edit.jpg'
 
 
 class CarouselPage extends Component {
@@ -48,12 +48,15 @@ class CarouselPage extends Component {
               age: "",        waist: "",        hip: "",      neck: "",           bodyFat: "",  bodyMusscle: "",
               tmb: "",        trainingDays: "", indexWH: "",  activityLevel: "",  goal: "",     weightGoal: "",
             },
-            logged: true
+            logged: true,
+            error: '',
+            formActivePanel1: 1,
+            formActivePanel1Changed: false,
         }, () => this.props.setUser(response));
       })
       .catch(error => {
         console.log(error)
- 
+        this.setState({ error: error.response.data.message}); 
       });
   };
 
@@ -90,14 +93,14 @@ class CarouselPage extends Component {
           <MDBCarouselItem itemId="2" id="step-2">
             <MDBView src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
               <MDBMask overlay="black-light" className="flex-center flex-column text-white">
-                <PageTwo updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} />
+                <PageTwo updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} error={this.state.error} />
               </MDBMask>            
             </MDBView>
           </MDBCarouselItem>
           <MDBCarouselItem itemId="3" id="step-3">
             <MDBView  src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
               <MDBMask overlay="black-light" className="flex-center flex-column text-white">
-                <PageThree updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} />
+                <PageThree updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} error={this.state.error} />
               </MDBMask>            
             </MDBView>
           </MDBCarouselItem>

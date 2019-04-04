@@ -1,3 +1,14 @@
 .logo {
-  text-align: center;
+  margin: 2rem auto !important;
+}
+
+.btn-filled {
+  background-color: white !important;
+  color: grey !important;
+  width: 20rem !important;
+  margin: 2rem auto !important;
+}
+
+.title-section {
+  font-size: 8rem;
 }

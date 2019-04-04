@@ -12,7 +12,6 @@ export default class Home extends Component {
         <HomeSection1 />
         <HomeSection2 />
         <Reviews />
-        <Footer />
 
       </div>
     )

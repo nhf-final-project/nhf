@@ -66,19 +66,24 @@ class RecipeDetails extends Component {
 
     return (
       <div >
-        <NavbarPage />
         <div className="recipe-details-main">
           <MDBRow className="px-3">
             <MDBCol md="3" className="pt-4">             
-              <img className="recipe-image" src={`${recipe.image}`} alt={`${recipe.label}`}/>
+              <img className="recipe-image img-fluid rounded z-depth-0" src={`${recipe.image}`} alt={`${recipe.label}`}/>
               <h2>{recipe.label}</h2>
               <h4><i className="fas fa-utensils"></i> {recipe.totalTime} mins to cook</h4>
               {recipe.healthLabels && recipe.healthLabels.map((label, idx) => {
                 return <span className="labels" key={idx}>| {label} |</span>
               })}
-              <br/>
-              <button onClick={this.saveTheRecipe} className="save-to-btn my-2 mx-0"><i className="fas fa-heart"></i> Save to collection</button>
-              <p className="text-center mt-2 add-to-message">{this.state.addToMessage}</p>
+              {/* { this.state.loggedInUser ?  */}
+                <div>
+                <br/>
+                <button onClick={this.saveTheRecipe} className="save-to-btn my-2 mx-0"><i className="fas fa-heart"></i> Save to collection</button>
+                <p className="text-center mt-2 add-to-message">{this.state.addToMessage}</p>
+                </div>
+                {/* : null } */}
+
+              
             </MDBCol>
              
             <MDBCol md="6" className="pt-4">

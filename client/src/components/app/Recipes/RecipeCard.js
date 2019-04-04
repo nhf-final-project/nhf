@@ -9,7 +9,7 @@ const RecipeCard = ({image, label, _id}) => {
             <div className="view zoom">
               <img src={`${image}`} className="img-fluid" alt=""/>
               <Link className="view-recipe-details" to={`/recipes/${_id}`}>
-                  <div className="stripe dark"><p>{label} <i className="fa fa-angle-right"></i></p></div>
+                  <div className="stripe dark label-height"><p>{label} <i className="fa fa-angle-right"></i></p></div>
               </Link>
             </div>
         </div>

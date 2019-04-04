@@ -6,7 +6,7 @@ import image from '../../../images/LOGO-white.png'
 
 const FooterPage = () => {
   return (
-    <MDBFooter color="elegant-color" className="footer-bottom page-footer font-small pt-4 mt-4">
+    <MDBFooter color="elegant-color" className="footer-bottom page-footer font-small pt-4">
       <MDBContainer fluid className="text-center text-md-left">
         <MDBRow>
           <MDBCol md="6" className="text-center">
@@ -15,7 +15,7 @@ const FooterPage = () => {
           </MDBCol>
           <MDBCol md="6" className="text-center">
             <h5 className="title">Links</h5>
-            <p><Link to={"/recipes"}>Recipes</Link> | <Link to={"/food"}>Food</Link></p>
+            <p><Link to={"/recipes"}>Recipes</Link> | <Link to={"/about-us"}>About Us</Link></p>
           </MDBCol>
         </MDBRow>
       </MDBContainer>

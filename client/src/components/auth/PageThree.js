@@ -66,6 +66,7 @@ class PageThree extends Component {
                     </div>
                     <button className="btn btn-outline-light btn-account btn-rounded" onClick={this.props.handleFormSubmit}>Register</button>
                     </form>
+                    <p className="text-center m-3 error-msg">{this.props.error}</p>
                 </MDBCol>
             </MDBRow>
         </MDBContainer>

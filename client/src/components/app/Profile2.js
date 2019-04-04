@@ -57,8 +57,8 @@ class Profile extends Component {
     return (
       
       <main>
-        <header className="profile-header text-center p-3">
-          <div className="user-greeting">
+        <header className="profile-header text-center p-3 pt-5">
+          <div className="user-greeting pt-5">
               <h2><span>Hello</span>, {loggedInUser.username}!</h2>
               <img className="profile-image img-fluid z-depth-1" src={ProfileImage} alt="profile"></img>
           </div>

@@ -4,6 +4,7 @@ import './App.css';
 // Components
 
 import NavbarPage from "./components/app/Navbar-Footer/NavbarPage"
+import Footer from "./components/app/Navbar-Footer/Footer"
 import Signup2 from "./components/auth/Signup2"
 import Home from "./components/app/Home/Home"
 import Login from "./components/auth/Login"
@@ -24,7 +25,6 @@ class App extends Component {
     super(props)
     this.state = { loggedInUser: null }
     this.service = new authService()
-    // this.checkLoggedin()
   }
 
   fetchUser() {
@@ -35,27 +35,12 @@ class App extends Component {
     }
   }
 
-  setTheUser = (userObj) => {
-    this.setState({ loggedInUser: userObj })
-  }
-
-  checkLoggedin = () => {
-    this.service.loggedin()
-      .then(e=>{
-        console.log(e)
-        if(e) this.setState({ loggedInUser: e})
-      })
-
-  }
+  setTheUser = (userObj) => { this.setState({ loggedInUser: userObj }) }
 
   logoutUser = () => {
     this.service.logout()
-        .then(() => {
-            this.setState({ loggedInUser: false });
-           
-        })
+        .then(() => { this.setState({ loggedInUser: false }) })
 }
-
 
   render() {
 
@@ -65,40 +50,31 @@ class App extends Component {
       console.log("logeado")
       return (
         <div>
-          {/* <NavbarPage /> */}
+          <NavbarPage userInSession={this.state.loggedInUser} setUser={this.setTheUser} />
           <Switch>
-             {/* <Route exact path='/recipes/:id' component={RecipeDetails} user={this.loggedInUser} />             */}
-            {/* <ProtectedRoutes user={this.state.loggedInUser} path='/' component={NavbarPage} /> */}
-            <Route exact path='/recipes' component={AllRecipes} />
-            <Route exact path='/recipes/:id' component={RecipeDetails} user={this.loggedInUser} />
+            <Route exact path='/' component={Home} />
+            <Route exact path='/recipes' component={AllRecipes} userInSession={this.loggedInUser} setUser={this.setTheUser} />
+            <Route exact path='/recipes/:id' component={RecipeDetails} userInSession={this.loggedInUser} setUser={this.setTheUser} />
             <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
           </Switch>
+          <Footer />
         </div>
       )
     }
     else {
       return (
         <div>
-          <NavbarPage />
+          <NavbarPage userInSession={this.state.loggedInUser} />
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route exact path='/recipes' component={AllRecipes} />
-            <Route exact path='/recipes/:id' component={RecipeDetails}/>
-            <Route exact path='/signup' render={() => <Signup2 setUser={this.setTheUser} user={this.loggedInUser}/>} />
-            <Route exact path='/login' render={() => <Login setUser={this.setTheUser} user={this.loggedInUser} />} />   
+            <Route exact path='/recipes' component={AllRecipes} userInSession={this.loggedInUser} setUser={this.setTheUser} />
+            <Route exact path='/recipes/:id' component={RecipeDetails} userInSession={this.loggedInUser} setUser={this.setTheUser}/>
+            <Route exact path='/signup' render={() => <Signup2 setUser={this.setTheUser} userInSession={this.state.loggedInUser}/>} />
+            <Route exact path='/login' render={() => <Login setUser={this.setTheUser} userInSession={this.state.loggedInUser} />} />   
             <ProtectedRoutes user={this.state.loggedInUser} exact path='/profile' component={Profile} />
             <Route exact path='/search' component={AllRecipes} />
           </Switch>
-
-          {/* <Route exact path='/signup' render={() => (
-                    loggedInUser ? (
-                      <Redirect to="/login" />
-                    ) : (
-                        <Signup setUser={this.setTheUser} />
-                      )
-                  )} /> */}
-
-
+          <Footer />
         </div>
       )
     }

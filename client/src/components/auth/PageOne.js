@@ -34,8 +34,8 @@ export default class PageOne extends Component {
               <MDBInput label="Email" icon="user" group type="text" validate error="wrong" success="right" name="email"  required="required" onChange={e => this.handleChange(e)} />
               <MDBInput label="Password" icon="lock" group type="password" validate name="password" required="required" onChange={e => this.handleChange(e)} />
             </form>
-            <p>{this.props.error}</p>
             <h5 className="text-center m-3 font-weight-bold"><small>Already have an account? <Link to={"/login"} className="links"> Login </Link></small></h5>
+            <p className="text-center m-3 error-msg">{this.props.error}</p>
           </MDBCol>  
         </MDBRow>
       </MDBContainer>

@@ -3,7 +3,33 @@ import ProfileService from "../../service/profile-service";
 import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdbreact';
 import './EditProfileForm.css'
 
-export default class EditProfileForm extends Component {
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FilledInput from '@material-ui/core/FilledInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing.unit * 2,
+  },
+});
+
+class EditProfileForm extends Component {
 
   constructor(props) {
     super(props)
@@ -140,22 +166,24 @@ export default class EditProfileForm extends Component {
 }
 
 componentWillReceiveProps(nextProps) {
-  this.setState({...this.state.edit, loggedInUser: nextProps["userInSession"]})
+  this.setState({ ...this.state, loggedInUser: nextProps["userInSession"] })
 }
 
   render() {
+    const { classes } = this.props;
     const {user} = this.props
     const {edit} = this.state
     console.log(this.state.edit.weight)
  
     return (
-      <div className="edit-profile">
+      <div className="edit-profile z-depth-1 rounded">
+      <MDBContainer>
         <form onSubmit={this.handleSubmit}>
         <MDBRow className="wrapper-inside">
-          <MDBCol md="3">
+            <MDBCol md="3">
               <MDBInput label="Username"            icon="user"                       group type="text"     validate error="wrong" success="right" name="username" value={edit.username} onChange={e => this.handleChange(e)} />
               <MDBInput label="Password"            icon="lock"                       group type="password" validate error="wrong" success="right" name="password" onChange={e => this.handleChange(e)} />
-            
+              <br/><button className="btn btn-outline-light btn-account btn-rounded" type="submit">Edit</button>           
             </MDBCol>
             <MDBCol md="2">
               <MDBInput label="Age"                 icon="user"                       group type="number"   validate error="wrong" success="right" name="age"         value={edit.age} onChange={e => this.handleChange(e)} />
@@ -215,11 +243,10 @@ componentWillReceiveProps(nextProps) {
                     </div>
             </MDBCol>
         </MDBRow>
-        <br/><button className="btn btn-outline-light btn-account btn-rounded" type="submit">Edit</button>
 
         </form>  
 
-            <form onSubmit={this.handleSubmit}>
+            {/* <form onSubmit={this.handleSubmit}>
             <div className="form-group col-12">
                 <label>Username</label>
                 <input type="text" name="username" placeholder={user.username} className="form-control" value={edit.username} onChange={e => this.handleChange(e)} />
@@ -306,8 +333,15 @@ componentWillReceiveProps(nextProps) {
             <input type="text" name="weightGoal" value={user.weightGoal} className="form-control" onChange={e => this.handleChange(e)}  />
 
             <button type="submit" >Edit</button>
-            </form>  
+            </form>   */}
+            </MDBContainer>
       </div>
     )
   }
 }
+
+EditProfileForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(EditProfileForm); 

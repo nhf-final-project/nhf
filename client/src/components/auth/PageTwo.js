@@ -4,7 +4,6 @@ import Stepper from "./Stepper"
 import './PageTwo.css'
 import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdbreact';
 
-
 class PageTwo extends Component {
   constructor(props) {
     super(props);
@@ -36,10 +35,10 @@ class PageTwo extends Component {
       this.tmbCalculator(weight, height, age, -161)
     } 
   }
-  
 
   handleChange = event => {
     const { name, value } = event.target;
+    this.setState({ [event.target.name]: event.target.value });
 
     // -------------------------------------------------------------
     // ----- indexWH 
@@ -128,12 +127,13 @@ class PageTwo extends Component {
               <MDBInput label="Body musscle"        icon="walking"       group type="number" validate error="wrong" success="right" name="bodyMusscle" value={this.bodyMusscle} onChange={e => this.handleChange(e)} disabled="disabled" />
               <MDBInput label="TMB"                 icon="fire-alt"       group type="number" validate error="wrong" success="right" name="tmb"         value={this.tmb} onChange={e => this.handleChange(e)} disabled="disabled" /> 
             </form>
+            <p className="text-center m-3 error-msg">{this.props.error}</p>
           </MDBCol>
-          
         </MDBRow>
       </MDBContainer>
     );
   }
 }
 
-export default PageTwo;
+
+export default PageTwo; 

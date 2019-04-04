@@ -21,6 +21,7 @@ export default class AllRecipes extends Component {
       recipes: [],
       copia: [],
       filtered: false,
+      loggedInUser: null,
       checkBoxes: {
         Vegetarian: false,
         Vegan: false,
@@ -31,6 +32,7 @@ export default class AllRecipes extends Component {
       },
       // backgroundImage: backgroundImage
     }
+    this.myRef = React.createRef()
     this.service = new RecipesService();
   }
 
@@ -102,20 +104,24 @@ export default class AllRecipes extends Component {
     this.setState({ copia:filter })
   }
 
-  componentDidMount() { this.getAllRecipes() }
+  componentDidMount() { 
+    this.myRef.current.scrollTo(0, 0);
+    this.getAllRecipes()
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({ ...this.state, loggedInUser: nextProps["userInSession"] })
+  }
 
   render() {
     return (
-      <div className="recipe-details-main">
-          <NavbarPage />
+      <div ref={this.myRef} className="recipe-details-main">
           <SearchByHealthLabel recipes={this.state.recipes} copia={this.state.copia} searchValue={this.state.searchValue} searchRecipe={this.searchRecipe} filterRecipe={this.filterRecipe} />
           <MDBContainer>
             <MDBInput label="Search" size="lg" outline icon="search" type="text" name="name" value={this.state.name}  onChange={(e) => {this.filterRecipe(e)}} />
           </MDBContainer>
-          <div className="row mb-5 p-5">
-            {Array.isArray(this.state.copia) ? this.state.copia.map((oneRecipe, index) => <RecipeCard key={index} {...oneRecipe} />) : null}
+          <div className="row p-5">
+            {Array.isArray(this.state.copia) ? this.state.copia.map((oneRecipe, index) => <RecipeCard key={index} {...oneRecipe} userInSession={this.state.loggedInUser} setUser={this.props.setTheUser}/>) : null}
           </div>
-          <Footer />
       </div>
     )
   }
