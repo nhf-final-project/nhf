@@ -1,35 +1,7 @@
 import React, { Component } from 'react'
-import ProfileService from "../../service/profile-service";
-import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdbreact';
-import './EditProfileForm.css'
+import ProfileService from "../../../service/profile-service";
 
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FilledInput from '@material-ui/core/FilledInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing.unit * 2,
-  },
-});
-
-class EditProfileForm extends Component {
+export default class EditProfileForm extends Component {
 
   constructor(props) {
     super(props)
@@ -40,18 +12,19 @@ class EditProfileForm extends Component {
         username: props.user.username,   height: props.user.height,       weight: props.user.weight,
         age: props.user.age,        waist: props.user.waist,        hip: props.user.hip,      neck: props.user.neck,           bodyFat: props.user.bodyFat,  bodyMusscle: props.user.bodyMusscle,
         tmb: props.user.tmb,        trainingDays: props.user.trainingDays, indexWH: props.user.indexWH,  activityLevel: props.user.activityLevel,  goal: props.user.goal,     weightGoal: props.user.weightGoal
-      }
+      },
+      loggedInUser: null 
     }
     this.indexWH =  this.props.user.indexWH;
     this.bodyFat = this.props.user.bodyFat;
     this.tmb = this.props.user.tmb;
     this.bodyMusscle = this.props.user.bodyMusscle;
 
-    this.services = new ProfileService()
-   
+      this.services = new ProfileService()
+       
 }
 
-  //FORMULAS
+//FORMULAS
 
   bodyFatGender = (waist, hip, neck, height, value) => {
     if (value === "male") { this.bodyFatMale(waist, neck, height) } else
@@ -150,141 +123,66 @@ class EditProfileForm extends Component {
 
 
   handleSubmit = e => {
-    const { name, value } = e.target;
 
     e.preventDefault()
 
     this.services.updateProfile(this.props.user._id, this.state.edit)
-        .then(x => this.setState({
-          edit: {
-            ...this.state.edit,
-            [name]: value
-          }
-        }, ()=>console.log(this.state.edit)))
+    .then(user => this.props.checkIfLogged() )
+    //     .then(x => this.props.refreshCoasters())
     
  
-}
+    }
 
-componentWillReceiveProps(nextProps) {
-  this.setState({ ...this.state, loggedInUser: nextProps["userInSession"] })
-}
+
+
 
   render() {
-    const { classes } = this.props;
     const {user} = this.props
     const {edit} = this.state
-    console.log(this.state.edit.weight)
  
     return (
-      <div className="edit-profile z-depth-1 rounded">
-      <MDBContainer>
-        <form onSubmit={this.handleSubmit}>
-        <MDBRow className="wrapper-inside">
-            <MDBCol md="3">
-              <MDBInput label="Username"            icon="user"                       group type="text"     validate error="wrong" success="right" name="username" value={edit.username} onChange={e => this.handleChange(e)} />
-              <MDBInput label="Password"            icon="lock"                       group type="password" validate error="wrong" success="right" name="password" onChange={e => this.handleChange(e)} />
-              <br/><button className="btn btn-outline-light btn-account btn-rounded" type="submit">Edit</button>           
-            </MDBCol>
-            <MDBCol md="2">
-              <MDBInput label="Age"                 icon="user"                       group type="number"   validate error="wrong" success="right" name="age"         value={edit.age} onChange={e => this.handleChange(e)} />
-              <MDBInput label="Waist"               icon="street-view"                group type="number"   validate error="wrong" success="right" name="waist"       value={edit.waist} onChange={e => this.handleChange(e)} />
-              <MDBInput label="Height"              icon="male"                       group type="number"   validate error="wrong" success="right" name="height"      value={edit.height} onChange={e => this.handleChange(e)} />
-            </MDBCol>
-            <MDBCol md="2">
-              <MDBInput label="Weight"              icon="weight-hanging venus-mars"  group type="number"   validate error="wrong" success="right" name="weight"      value={edit.weight} onChange={e => this.handleChange(e)} />
-              <MDBInput label="Hip"                 icon="street-view"                group type="number"   validate error="wrong" success="right" name="hip"         value={edit.hip} onChange={e => this.handleChange(e)} />
-              <MDBInput label="Neck"                icon="user-minus"                 group type="number"   validate error="wrong" success="right" name="neck"        value={edit.neck} onChange={e => this.handleChange(e)} />
-            </MDBCol>
-            <MDBCol md="2">
-              <MDBInput label="Index waist/height"  icon="heartbeat"                  group type="number"   validate error="wrong" success="right" name="indexWH"     value={user.indexWH} onChange={e => this.handleChange(e)} disabled="disabled" />
-              <MDBInput label="Body fat"            icon="walking"                    group type="number"   validate error="wrong" success="right" name="bodyFat"     value={user.bodyFat} onChange={e => this.handleChange(e)} disabled="disabled" />
-              <MDBInput label="Body musscle"        icon="walking"                    group type="number"   validate error="wrong" success="right" name="bodyMusscle" value={user.bodyMusscle} onChange={e => this.handleChange(e)} disabled="disabled" />
-              <MDBInput label="TMB"                 icon="fire-alt"                   group type="number"   validate error="wrong" success="right" name="tmb"         value={user.tmb} onChange={e => this.handleChange(e)} disabled="disabled" />             
-            </MDBCol>
-            <MDBCol md="2">
-                    <div className="form-group">
-                    <label>Training days</label>
-                    <select type="text" name="trainingDays" className="form-control" onChange={e => this.handleChange(e)}>
-                            <option>{user.trainingDays}</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                        </select>
-                    </div>
-
-                    <div className="form-group">
-                        <label>Activity level</label>
-                        <select type="text" name="activityLevel" className="form-control" onChange={e => this.handleChange(e)} >
-                            <option>{user.activityLevel}</option>
-                            <option>sedentary</option>
-                            <option>moderate</option>
-                            <option>active</option>
-                            <option>very active</option>
-                        </select>
-                    </div>
-
-                    <div className="form-group">
-                        <label>Goal</label>
-                        <select type="text" name="goal" className="form-control" onChange={e => this.handleChange(e)} >
-                            <option >{user.goal}</option>
-                            <option >lose weight</option>
-                            <option >maintain</option>
-                            <option >build muscle</option>
-                        </select>
-                    </div>
-
-                    <div className="form-group">
-                        <label>Weight goal</label>
-                        <input type="text" name="weightGoal" className="form-control" value={user.weightGoal} onChange={e => this.handleChange(e)} />
-                    </div>
-            </MDBCol>
-        </MDBRow>
-
-        </form>  
-
-            {/* <form onSubmit={this.handleSubmit}>
+      <div>
+        <h2>Edit profile</h2>
+         
+            <form onSubmit={this.handleSubmit}>
             <div className="form-group col-12">
                 <label>Username</label>
-                <input type="text" name="username" placeholder={user.username} className="form-control" value={edit.username} onChange={e => this.handleChange(e)} />
+                <input type="text" name="username" className="form-control" value={edit.username} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Height</label>
-                <input type="number" name="height" placeholder={user.height} className="form-control" value={edit.height} onChange={e => this.handleChange(e)} />
+                <input type="number" name="height" className="form-control" value={edit.height} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Weight</label>
-                <input type="number" name="weight" placeholder={user.weight} className="form-control" value={edit.weight} onChange={e => this.handleChange(e)} />
+                <input type="number" name="weight" className="form-control" value={edit.weight} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Age</label>
-                <input type="number" name="age" placeholder={user.age} className="form-control" value={edit.age} onChange={e => this.handleChange(e)} />
+                <input type="number" name="age" className="form-control" value={edit.age} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Waist</label>
-                <input type="number" name="waist" placeholder={user.waist} className="form-control" value={edit.waist} onChange={e => this.handleChange(e)} />
+                <input type="number" name="waist" className="form-control" value={edit.waist} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Hip</label>
-                <input type="number" name="hip" placeholder={user.hip} className="form-control" value={edit.hip} onChange={e => this.handleChange(e)} />
+                <input type="number" name="hip"  className="form-control" value={edit.hip} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Neck</label>
-                <input type="number" name="neck" placeholder={user.neck} className="form-control" value={edit.neck} onChange={e => this.handleChange(e)} />
+                <input type="number" name="neck" className="form-control" value={edit.neck} onChange={e => this.handleChange(e)} />
             </div>
 
             <div className="form-group col-12">
                 <label>Body fat</label>
-                <input type="number" name="bodyFat" className="form-control" placeholder={user.bodyFat} value={this.bodyFat} onChange={e => this.handleChange(e)} disabled="disabled" />
+                <input type="number" name="bodyFat" className="form-control" value={this.bodyFat} onChange={e => this.handleChange(e)} disabled="disabled" />
             </div>
 
             <div className="form-group col-12">
@@ -332,16 +230,9 @@ componentWillReceiveProps(nextProps) {
             
             <input type="text" name="weightGoal" value={user.weightGoal} className="form-control" onChange={e => this.handleChange(e)}  />
 
-            <button type="submit" >Edit</button>
-            </form>   */}
-            </MDBContainer>
+            <button type="submit" >Send</button>
+            </form>  
       </div>
     )
   }
 }
-
-EditProfileForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(EditProfileForm); 

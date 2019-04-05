@@ -23,7 +23,7 @@ class PageThree extends Component {
             <h3 className="font-weight-bold pl-0 my-4 text-center"><strong>Personal Goals</strong></h3>
             <MDBRow className="wrapper-inside">
                 <MDBCol md="8">   
-                    <Stepper />  
+                    {/* <Stepper />   */}
                     <form > 
                     <div className="form-group">
                     <label>Training days</label>

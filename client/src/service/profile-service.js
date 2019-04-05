@@ -33,7 +33,7 @@ export default class ProfileService {
         console.log(user, recipe, calendar)
         return this.service.post("profile/addRecipe", {user, recipe, calendar} )
             .then(res => {
-                // console.log(res.data)
+                console.log(res.data)
                 let result = _.groupBy(res.data.user.calendars, "day")
                 return result;
             })

@@ -108,7 +108,7 @@ class PageTwo extends Component {
         <h3 className="font-weight-bold pl-0 my-4 text-center"><strong>Personal Data</strong></h3>
         <MDBRow className="wrapper-inside">
           <MDBCol md="8">   
-            <Stepper />       
+            {/* <Stepper />        */}
             <form className="scroll">
               <label>Gender</label>
               <select type="text" name="gender" className="browser-default custom-select form-control select-wrapper" onChange={e => this.handleChange(e)} >

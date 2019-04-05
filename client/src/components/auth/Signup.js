@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import AuthService from "../../service/auth-service";
 import './Signup.css'
 import { Redirect } from 'react-router-dom';
+import background from './../../images/background-home-11-edit.jpg'
+import background2 from './../../images/background-home-12-edit.jpg'
+import background3 from './../../images/background-home-13-edit.jpg'
 
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask } from 'mdbreact';
 
@@ -83,7 +86,7 @@ class CarouselPage extends Component {
         {this.state.formActivePanel1 === 1 &&
           (
           <MDBCarouselItem itemId="1" id="step-1">
-            <MDBView src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
+            <MDBView src={background} className="bg-login">
               <MDBMask overlay="black-light" className="flex-center flex-column text-white">
                 <PageOne updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} error={this.state.error} />
               </MDBMask>
@@ -91,14 +94,14 @@ class CarouselPage extends Component {
           </MDBCarouselItem>
           )}
           <MDBCarouselItem itemId="2" id="step-2">
-            <MDBView src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
+            <MDBView src={background2}>
               <MDBMask overlay="black-light" className="flex-center flex-column text-white">
                 <PageTwo updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} error={this.state.error} />
               </MDBMask>            
             </MDBView>
           </MDBCarouselItem>
           <MDBCarouselItem itemId="3" id="step-3">
-            <MDBView  src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
+            <MDBView  src={background3}>
               <MDBMask overlay="black-light" className="flex-center flex-column text-white">
                 <PageThree updateState={this.updateState} handleFormSubmit={this.handleFormSubmit} user={this.state.user} error={this.state.error} />
               </MDBMask>            

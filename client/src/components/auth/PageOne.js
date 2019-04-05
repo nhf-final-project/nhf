@@ -28,7 +28,7 @@ export default class PageOne extends Component {
         <h3 className="font-weight-bold pl-0 my-4 text-center text-white"><strong>Basic Information</strong></h3>
         <MDBRow className="wrapper-inside">
           <MDBCol md="8">
-            <Stepper />
+            {/* <Stepper /> */}
             <form>
               <MDBInput label="Username" icon="user" group type="text" validate error="wrong" success="right" name="username" required="required" onChange={e => this.handleChange(e)} />
               <MDBInput label="Email" icon="user" group type="text" validate error="wrong" success="right" name="email"  required="required" onChange={e => this.handleChange(e)} />

@@ -8,7 +8,15 @@
 
 .profile-image {
   height: 19vh;
+  width: 19vh;
   border: 2px solid white;
   border-radius: 50%;
   
+}
+
+.profile-sections {
+  background-image: url('../../images/background-home-05-edit-02.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
 }

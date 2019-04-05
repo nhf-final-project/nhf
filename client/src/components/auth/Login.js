@@ -3,6 +3,8 @@ import AuthService from "../../service/auth-service";
 import { Link, Redirect } from 'react-router-dom';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBView, MDBMask } from 'mdbreact';
 import './Login.css'
+import background from './../../images/background-home-06-edit.jpg'
+
 
 class Login extends Component {
     constructor(props) {
@@ -35,7 +37,7 @@ class Login extends Component {
     render() {
         if(this.state.logged) return <Redirect to={"/profile"}/>
         return (
-            <MDBView src="https://mdbootstrap.com/img/Photos/Others/img%20(50).jpg">
+            <MDBView src={background}>
                 <MDBMask overlay="black-light" className="flex-center flex-column text-white">
                 <MDBContainer className="wrapper p-2 create-account">
                     <h2 className="text-center text-white">Login</h2>

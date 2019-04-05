@@ -72,7 +72,8 @@ profileRoutes.post('/profile/addRecipe', (req, res, next) => {
 
         .catch(err => {
             console.log('Error while updating a place', err)
-            next()
+            res.json(err)
+            // next(err)
         })
 })
 

@@ -22,3 +22,8 @@
   align-items: center;
   justify-content: center;
 }
+
+.hr-modified {
+  background-color: white;
+  margin-top:0;
+}

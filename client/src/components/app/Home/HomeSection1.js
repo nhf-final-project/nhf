@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MDBMask, MDBView, MDBCol, MDBRow } from 'mdbreact';
-import logo from '../../../images/LOGO-white.png'
+import logo from '../../../images/logo-white-grande.png'
 import background from '../../../images/background-home-05-edit.jpg'
 import './HomeSection.css'
 
