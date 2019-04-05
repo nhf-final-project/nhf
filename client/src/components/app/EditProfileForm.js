@@ -38,12 +38,18 @@ class EditProfileForm extends Component {
     this.state = {
       edit: {
         username: props.user.username,   height: props.user.height,       weight: props.user.weight,
+<<<<<<< HEAD
         age: props.user.age,        waist: props.user.waist,        hip: props.user.hip,      neck: props.user.neck,
         bodyFat: props.user.bodyFat,  bodyMusscle: props.user.bodyMusscle,
         tmb: props.user.tmb,        trainingDays: props.user.trainingDays, indexWH: props.user.indexWH,
         activityLevel: props.user.activityLevel,  goal: props.user.goal,     weightGoal: props.user.weightGoal
       },
       loggedInUser: null
+=======
+        age: props.user.age,        waist: props.user.waist,        hip: props.user.hip,      neck: props.user.neck,           bodyFat: props.user.bodyFat,  bodyMusscle: props.user.bodyMusscle,
+        tmb: props.user.tmb,        trainingDays: props.user.trainingDays, indexWH: props.user.indexWH,  activityLevel: props.user.activityLevel,  goal: props.user.goal,     weightGoal: props.user.weightGoal
+      }
+>>>>>>> 51bd79ee5669c82669b14bfe89698a3445cca395
     }
     this.indexWH =  this.props.user.indexWH;
     this.bodyFat = this.props.user.bodyFat;
@@ -145,14 +151,35 @@ class EditProfileForm extends Component {
   }
   
   handleSubmit = e => {
+<<<<<<< HEAD
     // const { name, value } = e.target;
     
+=======
+    const { name, value } = e.target;
+
+>>>>>>> 51bd79ee5669c82669b14bfe89698a3445cca395
     e.preventDefault()
  
     this.services.updateProfile(this.props.user._id, this.state.edit)
+<<<<<<< HEAD
     .then(user => this.props.checkIfLogged() )
     //     .then(x => this.props.refreshCoasters())
   }
+=======
+        .then(x => this.setState({
+          edit: {
+            ...this.state.edit,
+            [name]: value
+          }
+        }, ()=>console.log(this.state.edit)))
+    
+ 
+}
+
+componentWillReceiveProps(nextProps) {
+  this.setState({ ...this.state, loggedInUser: nextProps["userInSession"] })
+}
+>>>>>>> 51bd79ee5669c82669b14bfe89698a3445cca395
 
   render() {
     const { classes } = this.props;
@@ -167,6 +194,10 @@ class EditProfileForm extends Component {
         <MDBRow className="wrapper-inside">
             <MDBCol md="3">
               <MDBInput label="Username"            icon="user"                       group type="text"     validate error="wrong" success="right" name="username" value={edit.username} onChange={e => this.handleChange(e)} />
+<<<<<<< HEAD
+=======
+              <MDBInput label="Password"            icon="lock"                       group type="password" validate error="wrong" success="right" name="password" onChange={e => this.handleChange(e)} />
+>>>>>>> 51bd79ee5669c82669b14bfe89698a3445cca395
               <br/><button className="btn btn-outline-light btn-account btn-rounded" type="submit">Edit</button>           
             </MDBCol>
             <MDBCol md="2">
@@ -180,10 +211,17 @@ class EditProfileForm extends Component {
               <MDBInput label="Neck"                icon="user-minus"                 group type="number"   validate error="wrong" success="right" name="neck"        value={edit.neck} onChange={e => this.handleChange(e)} />
             </MDBCol>
             <MDBCol md="2">
+<<<<<<< HEAD
               <MDBInput label="Index waist/height"  icon="heartbeat"                  group type="number"   validate error="wrong" success="right" name="indexWH"     value={this.indexWH} onChange={e => this.handleChange(e)} disabled="disabled" />
               <MDBInput label="Body fat"            icon="walking"                    group type="number"   validate error="wrong" success="right" name="bodyFat"     value={this.bodyFat} onChange={e => this.handleChange(e)} disabled="disabled" />
               <MDBInput label="Body musscle"        icon="walking"                    group type="number"   validate error="wrong" success="right" name="bodyMusscle" value={this.bodyMusscle} onChange={e => this.handleChange(e)} disabled="disabled" />
               <MDBInput label="TMB"                 icon="fire-alt"                   group type="number"   validate error="wrong" success="right" name="tmb"         value={this.tmb} onChange={e => this.handleChange(e)} disabled="disabled" />             
+=======
+              <MDBInput label="Index waist/height"  icon="heartbeat"                  group type="number"   validate error="wrong" success="right" name="indexWH"     value={user.indexWH} onChange={e => this.handleChange(e)} disabled="disabled" />
+              <MDBInput label="Body fat"            icon="walking"                    group type="number"   validate error="wrong" success="right" name="bodyFat"     value={user.bodyFat} onChange={e => this.handleChange(e)} disabled="disabled" />
+              <MDBInput label="Body musscle"        icon="walking"                    group type="number"   validate error="wrong" success="right" name="bodyMusscle" value={user.bodyMusscle} onChange={e => this.handleChange(e)} disabled="disabled" />
+              <MDBInput label="TMB"                 icon="fire-alt"                   group type="number"   validate error="wrong" success="right" name="tmb"         value={user.tmb} onChange={e => this.handleChange(e)} disabled="disabled" />             
+>>>>>>> 51bd79ee5669c82669b14bfe89698a3445cca395
             </MDBCol>
             <MDBCol md="2">
                     <div className="form-group">
@@ -229,7 +267,100 @@ class EditProfileForm extends Component {
         </MDBRow>
 
         </form>  
+<<<<<<< HEAD
       </MDBContainer>
+=======
+
+            {/* <form onSubmit={this.handleSubmit}>
+            <div className="form-group col-12">
+                <label>Username</label>
+                <input type="text" name="username" placeholder={user.username} className="form-control" value={edit.username} onChange={e => this.handleChange(e)} />
+            </div>
+
+            <div className="form-group col-12">
+                <label>Height</label>
+                <input type="number" name="height" placeholder={user.height} className="form-control" value={edit.height} onChange={e => this.handleChange(e)} />
+            </div>
+
+            <div className="form-group col-12">
+                <label>Weight</label>
+                <input type="number" name="weight" placeholder={user.weight} className="form-control" value={edit.weight} onChange={e => this.handleChange(e)} />
+            </div>
+
+            <div className="form-group col-12">
+                <label>Age</label>
+                <input type="number" name="age" placeholder={user.age} className="form-control" value={edit.age} onChange={e => this.handleChange(e)} />
+            </div>
+
+            <div className="form-group col-12">
+                <label>Waist</label>
+                <input type="number" name="waist" placeholder={user.waist} className="form-control" value={edit.waist} onChange={e => this.handleChange(e)} />
+            </div>
+
+            <div className="form-group col-12">
+                <label>Hip</label>
+                <input type="number" name="hip" placeholder={user.hip} className="form-control" value={edit.hip} onChange={e => this.handleChange(e)} />
+            </div>
+
+            <div className="form-group col-12">
+                <label>Neck</label>
+                <input type="number" name="neck" placeholder={user.neck} className="form-control" value={edit.neck} onChange={e => this.handleChange(e)} />
+            </div>
+
+            <div className="form-group col-12">
+                <label>Body fat</label>
+                <input type="number" name="bodyFat" className="form-control" placeholder={user.bodyFat} value={this.bodyFat} onChange={e => this.handleChange(e)} disabled="disabled" />
+            </div>
+
+            <div className="form-group col-12">
+                <label>Body musscle</label>
+                <input type="number" name="bodyMusscle" className="form-control" value={user.bodyMusscle} onChange={e => this.handleChange(e)} disabled="disabled" />
+              </div>
+
+              <div className="form-group col-12">
+                <label>TMB</label>
+                <input type="number" name="tmb" className="form-control" value={user.tmb} onChange={e => this.handleChange(e)} disabled="disabled" />
+              </div>
+
+            <div className="form-group col-6">
+              <label>Training days</label>
+              <select type="text" name="trainingDays" className="form-control" onChange={e => this.handleChange(e)}>
+                    <option>{user.trainingDays}</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                </select>
+              </div>
+            <div className="form-group col-6">
+                <label>Activity level</label>
+                <select type="text" name="activityLevel" className="form-control" onChange={e => this.handleChange(e)} >
+                    <option>{user.activityLevel}</option>
+                    <option>sedentary</option>
+                    <option>moderate</option>
+                    <option>active</option>
+                    <option>very active</option>
+                </select>
+              </div>
+              <div className="form-group col-6">
+                <label>Goal</label>
+                <select type="text" name="goal" className="form-control" onChange={e => this.handleChange(e)} >
+                    <option >{user.goal} </option>
+                    <option >lose weight</option>
+                    <option >maintain</option>
+                    <option >build muscle</option>
+                </select>
+              </div>
+            
+            <input type="text" name="weightGoal" value={user.weightGoal} className="form-control" onChange={e => this.handleChange(e)}  />
+
+            <button type="submit" >Edit</button>
+            </form>   */}
+            </MDBContainer>
+>>>>>>> 51bd79ee5669c82669b14bfe89698a3445cca395
       </div>
     )
   }

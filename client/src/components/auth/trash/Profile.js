@@ -10,7 +10,11 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import './Profile.css'
 import EditProfileForm from '../../app/EditProfileForm';
+<<<<<<< HEAD
 import Calendar from '../../app/Calendar';
+=======
+import Calendar from './Calendar';
+>>>>>>> 51bd79ee5669c82669b14bfe89698a3445cca395
 
 
 
@@ -46,7 +50,10 @@ class Profile extends Component {
       recipes: [],
       value: 0,
       loggedInUser: null,
+<<<<<<< HEAD
       calendarRecipes: []
+=======
+>>>>>>> 51bd79ee5669c82669b14bfe89698a3445cca395
     }
     this.service = new ProfileService();
 
@@ -55,6 +62,7 @@ class Profile extends Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
+<<<<<<< HEAD
 
     
   toggle = tab => () => {
@@ -65,6 +73,8 @@ class Profile extends Component {
     }
   }
 
+=======
+>>>>>>> 51bd79ee5669c82669b14bfe89698a3445cca395
  
 
   getSavedRecipes = () => {
